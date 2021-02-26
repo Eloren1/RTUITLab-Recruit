@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{33DD33B6-D8C8-FC3C-BE0E-989665D418B5}</ProjectGuid>
+    <ProjectGuid>{DA2096FC-F16A-A539-14F4-E7D36C71F274}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,14 +56,62 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlaneController.cs" />
     <Compile Include="Assets\Scripts\Chassis.cs" />
-    <Compile Include="Assets\Scripts\Engine.cs" />
+    <Compile Include="Assets\Scripts\PlaneVisuals.cs" />
     <Compile Include="Assets\Scripts\Inputs\Inputs.cs" />
     <Compile Include="Assets\Scripts\Inputs\KeyboardInputs.cs" />
+    <Compile Include="Assets\Scripts\Engine.cs" />
+    <Compile Include="Assets\Scripts\PlaneController.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerModalWindow.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Animated Icon\AnimatedIconHandler.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerScrollbar.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Tooltip\TooltipContent.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBar.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSliderEditor.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollForMore.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Dropdown\CustomDropdown.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeMinSlider.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Switch\SwitchManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Others\UIGradient.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerTooltip.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeSlider.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Toggle\ToggleAnim.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerNotification.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Horizontal Selector\HorizontalSelector.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RadialSlider.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopListShadow.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Input Field\CustomInputField.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerHSelector.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopButton.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSlider.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Notification\NotificationManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Tooltip\TooltipManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Modal Window\ModalWindowTabs.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\UIElementInFront.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeMaxSlider.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\LayoutGroupPositionFix.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoopEditor.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButtonEditor.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Progress Bar\ProgressBar.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Progress Bar\PBFilled.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Modal Window\ModalWindowManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerInputField.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerToggle.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSwitch.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButton.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerDropdown.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\LaunchURL.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerAnimatedIcon.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Slider\SliderManager.cs" />
+    <Compile Include="Assets\Modern UI Pack\Scripts\Dropdown\DropdownMultiSelect.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
+     <None Include="Assets\Modern UI Pack\Read Me.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Users\elore\Documents\Unity\!Projects\2020.2.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -649,6 +697,12 @@
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Sysroot.Linux_x86_64">
+      <HintPath>Library\ScriptAssemblies\Unity.Sysroot.Linux_x86_64.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
+      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -666,12 +720,6 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Sysroot.Linux_x86_64">
-      <HintPath>Library\ScriptAssemblies\Unity.Sysroot.Linux_x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
-      <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
     </Reference>
     <Reference Include="Unity.SysrootPackage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.SysrootPackage.Editor.dll</HintPath>

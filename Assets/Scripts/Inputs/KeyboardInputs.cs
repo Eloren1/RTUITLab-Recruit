@@ -7,11 +7,6 @@ public class KeyboardInputs : Inputs
         return (Input.GetAxis("Thrust"));
     }
 
-    public override float RollNormalized()
-    {
-        return (Input.GetAxis("Horizontal"));
-    }
-
     public override float YawNormalized()
     {
         return (Input.GetAxis("Yaw"));
@@ -20,6 +15,16 @@ public class KeyboardInputs : Inputs
     public override float PitchNormalized()
     {
         return (Input.GetAxis("Vertical"));
+    }
+
+    public override float RollNormalized()
+    {
+        return (Input.GetAxis("Horizontal"));
+    }
+
+    public override float FlapsNormalized()
+    {
+        return (Input.GetAxis("Flaps"));
     }
 
     public override bool ToggleChassis()
