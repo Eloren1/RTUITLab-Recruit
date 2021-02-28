@@ -59,6 +59,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerModalWindow.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Animated Icon\AnimatedIconHandler.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSliderEditor.cs" />
+    <Compile Include="Assets\Scripts\UI\UIFreeFlightTab.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopButton.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\LayoutGroupPositionFix.cs" />
     <Compile Include="Assets\Scripts\Game\Chassis.cs" />
@@ -97,22 +98,26 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopListShadow.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSlider.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\UIElementInFront.cs" />
+    <Compile Include="Assets\Scripts\UI\UICompetitionTab.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButton.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Dropdown\DropdownMultiSelect.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollForMore.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBar.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RadialSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\UIControllerMainMenu.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Notification\NotificationManager.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Tooltip\TooltipManager.cs" />
     <Compile Include="Assets\Scripts\Game\Engine.cs" />
+    <Compile Include="Assets\Scripts\UI\UIHangar.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Others\UIGradient.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
-    <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
-    <Compile Include="Assets\Scripts\UI\UIControllerMainMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\UICompetitionTab.cs" />
-    <Compile Include="Assets\Scripts\UI\UIFreeFlightTab.cs" />
     <Compile Include="Assets\Scripts\UI\UITutorialTab.cs" />
-    <Compile Include="Assets\Scripts\UI\UIHangar.cs" />
+    <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Gamemodes\Competition.cs" />
+    <Compile Include="Assets\Scripts\Game\Gamemodes\Gamemode.cs" />
+    <Compile Include="Assets\Scripts\Game\Gamemodes\Circle.cs" />
+    <Compile Include="Assets\Scripts\Game\GameUIController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />

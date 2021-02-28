@@ -1,10 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Inputs : MonoBehaviour
 {
+    private PlaneController controller;
+
     private void Awake()
     {
-        FindObjectOfType<PlaneController>().AssignInputs(this);
+        StartCoroutine(TryToAssign());
+    }
+
+    private IEnumerator TryToAssign()
+    {
+        controller = FindObjectOfType<PlaneController>();
+
+        while (controller == null)
+        {
+            yield return new WaitForSeconds(0.2f);
+            controller = FindObjectOfType<PlaneController>();
+        }
+
+        controller.AssignInputs(this);
     }
 
     /// <returns>«начение от -1f до 1f</returns>
