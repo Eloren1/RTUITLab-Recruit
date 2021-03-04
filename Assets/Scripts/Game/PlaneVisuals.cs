@@ -22,6 +22,18 @@ public class PlaneVisuals : MonoBehaviour
     [SerializeField] private GameObject cockpitStick;
     private float maxStickAngle = 12f;
 
+    [Header("Ливрея")]
+    [SerializeField] private MeshRenderer[] texturedParts; // Детали, в которых нужно поменять текстуру на выбранную
+    [SerializeField] private Material[] textures;
+
+    private void Awake()
+    {
+        foreach (var part in texturedParts)
+        {
+            part.material = textures[PlayerPrefs.GetInt("Plane")];
+        }
+    }
+
     public void UpdateVisuals(float yaw, float pitch, float roll, float flaps)
     {
         rudder.transform.localRotation = Quaternion.Euler(0, maxYawAngle * -yaw, 0);

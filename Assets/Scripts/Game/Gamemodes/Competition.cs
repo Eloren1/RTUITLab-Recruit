@@ -67,8 +67,8 @@ public class Competition : Gamemode
         int minutes = (time / 60) % 60;
         int hours = (time / 60) / 60;
 
-        return ("ÂÐÅÌß: " + ((seconds > 9) ? "" : "0") + seconds +
-           ((minutes > 9) ? "" : "0") + minutes + ((hours > 9) ? "" : "0") + hours);
+        return (((hours > 9) ? "" : "0") + hours + ":" +
+           ((minutes > 9) ? "" : "0") + minutes + ":" +((seconds > 9) ? "" : "0") + seconds);
     }
 
     private IEnumerator Timer()

@@ -18,8 +18,8 @@ public class UICompetitionTab : MonoBehaviour
                 int minutes = (time / 60) % 60;
                 int hours = (time / 60) / 60;
 
-                mapTimes[i].text = "ÂÐÅÌß: " + ((seconds > 9) ? "" : "0") + seconds +
-                    ((minutes > 9) ? "" : "0") + minutes + ((hours > 9) ? "" : "0") + hours;
+                mapTimes[i].text = "ÂÐÅÌß: " + ((hours > 9) ? "" : "0") + hours + ":" +
+                    ((minutes > 9) ? "" : "0") + minutes + ":" + ((seconds > 9) ? "" : "0") + seconds;
             }
             else
             {

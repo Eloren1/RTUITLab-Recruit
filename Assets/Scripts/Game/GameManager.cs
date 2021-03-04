@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject freeFlight;
     [SerializeField] private GameObject tutorial;
 
+    private Gamemode gm;
+
     private void Start()
     {
         gamemode = PlayerPrefs.GetInt("Gamemode");
@@ -25,5 +27,9 @@ public class GameManager : MonoBehaviour
                 tutorial.SetActive(true);
                 break;
         }
+
+        gm = FindObjectOfType<Gamemode>();
+
+        gm.StartGame();
     }
 }

@@ -18,7 +18,7 @@ public class PlaneController : MonoBehaviour
     private float roll;
     [SerializeField] private float rollForce = 30f;
     private float flaps;
-    [SerializeField] private float flapsForce = 400f;
+    [SerializeField] private float flapsForce = 1000f;
     [SerializeField] private float changingSpeed = 0.1f;
     private float magnitude;
     
@@ -65,12 +65,12 @@ public class PlaneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        magnitude = transform.InverseTransformDirection(rb.velocity).z;
+        magnitude = transform.InverseTransformDirection(rb.velocity).z; // Берется только при горизонтальном полете
 
         if (inputs != null)
         {
             // При отсутствии ввода значения не меняются
-            thrust = Mathf.Clamp(thrust + inputs.ThrustNormalized() * 0.02f, 0f, 1f);
+            thrust = Mathf.Clamp(thrust + inputs.ThrustNormalized() * 0.01f, 0f, 1f);
             flaps = Mathf.Clamp(flaps + inputs.FlapsNormalized() * 0.02f, 0f, 1f);
 
             // При отсутствии ввода значения возвращаются к нулю
@@ -96,7 +96,7 @@ public class PlaneController : MonoBehaviour
         if (rb != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + rb.velocity / 10);
+            Gizmos.DrawLine(transform.position, transform.position + rb.velocity / 5);
         }
     }
 
@@ -112,7 +112,7 @@ public class PlaneController : MonoBehaviour
 
     private void AddPitchForce()
     {
-        rb.angularVelocity = rb.transform.right * pitch * magnitude * pitchForce / 1000f;
+        rb.angularVelocity = rb.transform.right * pitch * magnitude * pitchForce / 1500f;
 
         // Debug.Log(magnitude);
         // Debug.Log(rb.velocity.magnitude * 3.6f * 0.53996f); // Скорость в Knots

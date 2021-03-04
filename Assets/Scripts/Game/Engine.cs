@@ -3,12 +3,16 @@ using UnityEngine;
 public class Engine : MonoBehaviour
 {
     [Header("Параметры")]
-    [SerializeField] private float power = 4000f;
+    [SerializeField] private float power = 51280f;
     [SerializeField] private float liftingForce = 1000f;
 
     [Header("Управление")]
+    private float currentThrust;
     private float rpm;
     private float maxRpm;
+    private float rpmForce;
+    private float speedAffect;
+    private float maxMagnitude = 120f;
 
     [Header("Компоненты")]
     [SerializeField] private GameObject prop;
@@ -25,34 +29,35 @@ public class Engine : MonoBehaviour
 
     public void AddForce(float thrust, float magnitude)
     {
-        /*
-         * TODO: Добавить stall, мощность силы будет зависеть от угла наклона по сравнению с землей
-         */
+        speedAffect = (magnitude / maxMagnitude) % 1;
 
-        // Чем выше скорость, тем меньше добавляем силы
+        currentThrust = Mathf.Lerp(currentThrust, thrust, 1f / 250f);
+        currentThrust = Mathf.Clamp(currentThrust, 0f, 1f);
+        // Debug.Log(currentThrust + " <- " + thrust);
 
-        // TODO: Плавное раскручивание винта
-        rpm = thrust * power * 20;
+        rpm = currentThrust * power / 10;
+        Debug.Log(rpm);
 
-        prop.transform.Rotate(-Vector3.forward * rpm);
+        rpmForce = rpm * 20 * 10;
+
+        prop.transform.Rotate(-Vector3.forward * (rpm + magnitude / 30f));
 
         // При 70% мощности самолет будет лететь прямо,
         // при меньшей мощности — лететь вниз
-        rb.AddRelativeForce(Vector3.up * Mathf.Clamp(((rpm / maxRpm) - 0.7f), -0.3f, 0.3f) * magnitude * liftingForce);
+        rb.AddRelativeForce(Vector3.up * Mathf.Clamp(((rpmForce / maxRpm) - 0.7f), -0.3f, 0.3f) * magnitude * liftingForce);
 
-        // Движение самолета вперед
-        rb.AddRelativeForce(Vector3.forward * (rpm - magnitude * 300f));
+        // Движение самолета вперед,
+        // чем выше скорость, тем меньше добавляем силы
+        rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f));
 
+        float angle = Vector3.SignedAngle(transform.forward, rb.velocity, Vector3.one);
+        // Debug.Log(angle);
 
-        float angle = -Vector3.SignedAngle(Vector3.forward, transform.InverseTransformDirection(rb.velocity), Vector3.up);
-        Debug.Log(angle);
-
-        // TODO: angle имеет неправильный знак при полете в другую сторону / в перевернутом состоянии
-
-        // Сопротивление воздуха от крыльев под наклоном
-        rb.AddRelativeForce(Vector3.up * 20000 * (rpm / maxRpm) * angle);
+        // Сопротивление воздуха от крыльев под наклоном,
+        // спустя время самолет будет выравниваться и лететь прямо
+        rb.AddRelativeForce(Vector3.up * 120000 * speedAffect * angle);
 
         // Уменьшение скорости вперед из-за сопротивления воздуха
-        rb.AddRelativeForce(-Vector3.forward * Mathf.Abs((rpm / maxRpm) * angle) * 100);
+        rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(speedAffect * angle) * 500);
     }
 }

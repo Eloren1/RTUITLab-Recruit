@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &729737342534141557
 Transform:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &729737342557745112
 Transform:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   yawForce: 0
   pitchForce: 12
   rollForce: 180
-  flapsForce: 400
+  flapsForce: 1000
   changingSpeed: 0.1
 --- !u!114 &729737343609105085
 MonoBehaviour:
@@ -323,6 +323,28 @@ MonoBehaviour:
   flaps_r: {fileID: 8910369371639634998}
   flaps_l: {fileID: 8910324688908042178}
   cockpitStick: {fileID: 8909864465173976702}
+  texturedParts:
+  - {fileID: 8930833975192903214}
+  - {fileID: 8932713577571944212}
+  - {fileID: 8932490496185989286}
+  - {fileID: 8931681815023026228}
+  - {fileID: 8930841062968232744}
+  - {fileID: 8932721298950149092}
+  - {fileID: 8931049838163818028}
+  - {fileID: 8930831380946164922}
+  - {fileID: 8932577151028947802}
+  - {fileID: 8930826261740839738}
+  - {fileID: 8932554092682139778}
+  - {fileID: 8930962816536812884}
+  - {fileID: 8932441465839299006}
+  - {fileID: 8932433851210616416}
+  - {fileID: 8932416424293365630}
+  - {fileID: 8930935155233422336}
+  - {fileID: 8932408236141012284}
+  textures:
+  - {fileID: 2100000, guid: 0d8231b30c98af64caa44000ff598093, type: 2}
+  - {fileID: 2100000, guid: 0854269d4a0c10d418d18d0c3b0e01be, type: 2}
+  - {fileID: 2100000, guid: dd08843959cbd6c48967929b3ebb2fae, type: 2}
 --- !u!54 &729737343609105080
 Rigidbody:
   m_ObjectHideFlags: 0
