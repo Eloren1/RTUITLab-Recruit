@@ -14,9 +14,9 @@ public class PlaneController : MonoBehaviour
     private float yaw;
     [SerializeField] private float yawForce = 20f;
     private float pitch;
-    [SerializeField] private float pitchForce = 15f;
+    [SerializeField] private float pitchForce = 12f;
     private float roll;
-    [SerializeField] private float rollForce = 30f;
+    [SerializeField] private float rollForce = 300f;
     private float flaps;
     [SerializeField] private float flapsForce = 1000f;
     [SerializeField] private float changingSpeed = 0.1f;
@@ -38,6 +38,8 @@ public class PlaneController : MonoBehaviour
 
         planeVisuals = GetComponent<PlaneVisuals>();
         rb = GetComponent<Rigidbody>();
+
+        Time.timeScale = 0.1f;
     }
 
     public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
@@ -65,7 +67,7 @@ public class PlaneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        magnitude = transform.InverseTransformDirection(rb.velocity).z; // Берется только при горизонтальном полете
+        magnitude = transform.InverseTransformDirection(rb.velocity).z;
 
         if (inputs != null)
         {
@@ -81,9 +83,12 @@ public class PlaneController : MonoBehaviour
 
             engine.AddForce(thrust, magnitude);
 
-            AddRollForce();
             AddYawForce();
+            AddRollForce();
             AddPitchForce();
+
+            // Debug.Log(rb.velocity.magnitude * 3.6f * 0.53996f); // Скорость в Knots
+
             AddFlapsLiftingForce();
         }
 
@@ -91,31 +96,19 @@ public class PlaneController : MonoBehaviour
         rb.angularVelocity *= 0.98f;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (rb != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + rb.velocity / 5);
-        }
-    }
-
-    private void AddRollForce()
-    {
-        rb.AddRelativeTorque(-Vector3.forward * roll * magnitude * rollForce);
-    }
-
     private void AddYawForce()
     {
         // rb.AddRelativeTorque(Vector3.up * yaw * yawForce);
     }
 
+    private void AddRollForce()
+    {
+        rb.AddRelativeTorque(Vector3.forward * -roll * magnitude * rollForce);
+    }
+
     private void AddPitchForce()
     {
-        rb.angularVelocity = rb.transform.right * pitch * magnitude * pitchForce / 1500f;
-
-        // Debug.Log(magnitude);
-        // Debug.Log(rb.velocity.magnitude * 3.6f * 0.53996f); // Скорость в Knots
+        rb.AddRelativeTorque(Vector3.right * pitch * magnitude * pitchForce);
     }
 
     private void AddFlapsLiftingForce()

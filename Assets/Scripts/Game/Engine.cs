@@ -12,7 +12,7 @@ public class Engine : MonoBehaviour
     private float maxRpm;
     private float rpmForce;
     private float speedAffect;
-    private float maxMagnitude = 120f;
+    private float maxMagnitude = 150f;
 
     [Header(" омпоненты")]
     [SerializeField] private GameObject prop;
@@ -36,7 +36,7 @@ public class Engine : MonoBehaviour
         // Debug.Log(currentThrust + " <- " + thrust);
 
         rpm = currentThrust * power / 10;
-        Debug.Log(rpm);
+        // Debug.Log(rpm);
 
         rpmForce = rpm * 20 * 10;
 
@@ -50,14 +50,32 @@ public class Engine : MonoBehaviour
         // чем выше скорость, тем меньше добавл€ем силы
         rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f));
 
-        float angle = Vector3.SignedAngle(transform.forward, rb.velocity, Vector3.one);
-        // Debug.Log(angle);
+        var velocity = transform.InverseTransformDirection(rb.velocity);
+        velocity.x = 0;
+        rb.velocity = transform.TransformPoint(velocity);
+
+        float angle = Vector3.SignedAngle(transform.forward, transform.InverseTransformDirection(rb.velocity), new Vector3(1, 0, 0));
+        Debug.Log(angle);
 
         // —опротивление воздуха от крыльев под наклоном,
         // спуст€ врем€ самолет будет выравниватьс€ и лететь пр€мо
         rb.AddRelativeForce(Vector3.up * 120000 * speedAffect * angle);
 
         // ”меньшение скорости вперед из-за сопротивлени€ воздуха
-        rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(speedAffect * angle) * 500);
+        rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(speedAffect * angle) * 2500);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (rb != null)
+        {
+            // “екущее направление самолета
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + transform.InverseTransformDirection(rb.velocity / 5));
+
+            // Ќаправление вперед
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 15);
+        }
     }
 }
