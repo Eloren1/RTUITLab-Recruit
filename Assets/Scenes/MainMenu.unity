@@ -4563,7 +4563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041F\u0415\u0421\u041E\u0427\u041D\u042B\u0419 \u0411\u0415\u0420\u0415\u0413"
+  m_Text: "\u041F\u0415\u0421\u0427\u0410\u041D\u042B\u0419 \u0411\u0415\u0420\u0415\u0413"
 --- !u!222 &534207509
 CanvasRenderer:
   m_ObjectHideFlags: 0

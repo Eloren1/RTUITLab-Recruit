@@ -25,9 +25,10 @@ public class Competition : Gamemode
         seconds = 0;
         level = PlayerPrefs.GetInt("Level");
 
-        // Создаем самолет в нужной точке
-        Instantiate(planePrefab, spawns[level].transform.position, spawns[level].transform.rotation);
-        planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0, 0); // TODO: Set real values!
+        // Перемещаем самолет в нужную точку
+        planePrefab.transform.position = spawns[level].transform.position;
+        planePrefab.transform.rotation = spawns[level].transform.rotation;
+        planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero);
 
         // Включаем объект со всеми кольцами
         levels[level].SetActive(true);

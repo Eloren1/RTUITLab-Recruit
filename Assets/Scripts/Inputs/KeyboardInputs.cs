@@ -31,4 +31,9 @@ public class KeyboardInputs : Inputs
     {
         return (Input.GetKeyDown(KeyCode.C));
     }
+
+    public override bool Brakes()
+    {
+        return (Input.GetKey(KeyCode.B));
+    }
 }

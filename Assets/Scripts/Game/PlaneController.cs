@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlaneVisuals))]
 [RequireComponent(typeof(Chassis))]
 [RequireComponent(typeof(Engine))]
+[RequireComponent(typeof(Brakes))]
 public class PlaneController : MonoBehaviour
 {
     [Header("Параметры")]
@@ -21,10 +22,12 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float flapsForce = 1000f;
     [SerializeField] private float changingSpeed = 0.1f;
     private float magnitude;
+    private float angle;
     
     [Header("Компоненты")]
     private Chassis chassis;
     private Engine engine;
+    private Brakes brakes;
 
     [Header("Утилиты")]
     private Rigidbody rb;
@@ -35,18 +38,19 @@ public class PlaneController : MonoBehaviour
     {
         chassis = GetComponent<Chassis>();
         engine = GetComponent<Engine>();
+        brakes = GetComponent<Brakes>();
 
         planeVisuals = GetComponent<PlaneVisuals>();
         rb = GetComponent<Rigidbody>();
-
-        Time.timeScale = 0.1f;
     }
 
     public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
 
-    public void SetStartValues(Vector3 velocity, float rpm, float thrust)
+    // Метод задает начальное значение, таким образом можно
+    // создавать самолет в воздухе уже летящим
+    public void SetStartValues(Vector3 velocity)
     {
-        Debug.LogError("Start values are not assinged");
+        rb.velocity = velocity;
     }
 
     private void Update()
@@ -56,6 +60,14 @@ public class PlaneController : MonoBehaviour
             if (inputs.ToggleChassis())
             {
                 chassis.ToggleChassis();
+            }
+
+            if (inputs.Brakes())
+            {
+                brakes.Brake();
+            } else
+            {
+                brakes.Unbrake();
             }
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
@@ -68,6 +80,17 @@ public class PlaneController : MonoBehaviour
     private void FixedUpdate()
     {
         magnitude = transform.InverseTransformDirection(rb.velocity).z;
+
+        angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
+        // Debug.Log(angle);
+
+        // Сопротивление воздуха от крыльев под наклоном,
+        // спустя время направление самолета будет выравниваться
+        var mag = rb.velocity.magnitude;
+        rb.velocity = mag * Vector3.Lerp(rb.velocity.normalized, transform.forward, Mathf.Abs(engine.SpeedAffect * angle) / 100);
+
+        // Уменьшение вращательной инерции
+        rb.angularVelocity *= 0.98f;
 
         if (inputs != null)
         {
@@ -87,13 +110,13 @@ public class PlaneController : MonoBehaviour
             AddRollForce();
             AddPitchForce();
 
+            AddFlapsLiftingForce();
+
             // Debug.Log(rb.velocity.magnitude * 3.6f * 0.53996f); // Скорость в Knots
 
-            AddFlapsLiftingForce();
+            // Уменьшение скорости вперед из-за сопротивления воздуха
+            rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(engine.SpeedAffect * angle) * (chassis.IsClosed ? 10000 : 12000));
         }
-
-        // Уменьшение вращательной инерции
-        rb.angularVelocity *= 0.98f;
     }
 
     private void AddYawForce()

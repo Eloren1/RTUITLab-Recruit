@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 729737343609105085}
   - component: {fileID: 729737343609105084}
   - component: {fileID: 729737343609105081}
+  - component: {fileID: 8850872206363771404}
   - component: {fileID: 729737343609105080}
   m_Layer: 0
   m_Name: 'Plane '
@@ -249,8 +250,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729737343609105087}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.3, y: 4.2, z: -97.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 729737342557745112}
@@ -271,9 +272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yawForce: 0
-  pitchForce: 2000
+  pitchForce: 2700
   rollForce: 5000
-  flapsForce: 1000
+  flapsForce: 8000
   changingSpeed: 0.1
 --- !u!114 &729737343609105085
 MonoBehaviour:
@@ -288,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 729737342969402180}
+  IsClosed: 0
 --- !u!114 &729737343609105084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,8 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563d8d6b658b87438f549b38fcfde5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 40000
-  liftingForce: 700
+  power: 35000
+  liftingForce: 5000
+  SpeedAffect: 0
   prop: {fileID: 8908573962199174088}
 --- !u!114 &729737343609105081
 MonoBehaviour:
@@ -345,6 +348,24 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 0d8231b30c98af64caa44000ff598093, type: 2}
   - {fileID: 2100000, guid: 0854269d4a0c10d418d18d0c3b0e01be, type: 2}
   - {fileID: 2100000, guid: dd08843959cbd6c48967929b3ebb2fae, type: 2}
+--- !u!114 &8850872206363771404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729737343609105087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f38b3bc204f7b4da9a1c3a4a2f2cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheels:
+  - {fileID: 8909351398817457875}
+  - {fileID: 8908619957195369217}
+  - {fileID: 8908653000563770247}
+  wheelRotating: {fileID: 13400000, guid: f556c92c2a1855847b7f3fe738661419, type: 2}
+  wheelBraking: {fileID: 13400000, guid: 2dc2b6b6b795a8b48ac46021585f4a90, type: 2}
 --- !u!54 &729737343609105080
 Rigidbody:
   m_ObjectHideFlags: 0

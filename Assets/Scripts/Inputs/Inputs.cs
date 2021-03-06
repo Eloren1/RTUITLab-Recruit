@@ -40,4 +40,5 @@ public abstract class Inputs : MonoBehaviour
 
     public abstract bool ToggleChassis();
 
+    public abstract bool Brakes();
 }

@@ -7,14 +7,14 @@ public class Chassis : MonoBehaviour
     private float toggleDuration = 5.4f;
 
     private bool canToggle = true;
-    private bool isClosed = false;
+    public bool IsClosed = false;
 
     public void ToggleChassis()
     {
         if (canToggle)
         {
             canToggle = false;
-            StartCoroutine(isClosed ? Open() : Close());
+            StartCoroutine(IsClosed ? Open() : Close());
         }
     }
 
@@ -24,7 +24,7 @@ public class Chassis : MonoBehaviour
 
         yield return new WaitForSeconds(toggleDuration);
 
-        isClosed = false;
+        IsClosed = false;
         canToggle = true;
     }
 
@@ -34,7 +34,7 @@ public class Chassis : MonoBehaviour
 
         yield return new WaitForSeconds(toggleDuration);
 
-        isClosed = true;
+        IsClosed = true;
         canToggle = true;
     }
 }
