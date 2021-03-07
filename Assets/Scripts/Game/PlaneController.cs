@@ -28,25 +28,27 @@ public class PlaneController : MonoBehaviour
     private Chassis chassis;
     private Engine engine;
     private Brakes brakes;
+    private PlaneVisuals planeVisuals;
 
     [Header("Утилиты")]
     private Rigidbody rb;
-    private PlaneVisuals planeVisuals;
     private Inputs inputs;
+    private GameUIController gameUI;
 
     private void Awake()
     {
         chassis = GetComponent<Chassis>();
         engine = GetComponent<Engine>();
         brakes = GetComponent<Brakes>();
-
         planeVisuals = GetComponent<PlaneVisuals>();
+
         rb = GetComponent<Rigidbody>();
+        gameUI = FindObjectOfType<GameUIController>();
     }
 
     public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
 
-    // Метод задает начальное значение, таким образом можно
+    // Метод задает начальные значения, таким образом можно
     // создавать самолет в воздухе уже летящим
     public void SetStartValues(Vector3 velocity)
     {
@@ -71,6 +73,9 @@ public class PlaneController : MonoBehaviour
             }
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
+            gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm, 
+                (int)(rb.velocity.magnitude * 3.6f * 0.53996f), 
+                (int)(transform.position.y * 3.28084f));
         } else
         {
             Debug.LogError("Inputs are not assigned");
@@ -112,7 +117,7 @@ public class PlaneController : MonoBehaviour
 
             AddFlapsLiftingForce();
 
-            // Debug.Log(rb.velocity.magnitude * 3.6f * 0.53996f); // Скорость в Knots
+            Debug.Log(rb.velocity);
 
             // Уменьшение скорости вперед из-за сопротивления воздуха
             rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(engine.SpeedAffect * angle) * (chassis.IsClosed ? 10000 : 12000));
@@ -121,7 +126,7 @@ public class PlaneController : MonoBehaviour
 
     private void AddYawForce()
     {
-        // rb.AddRelativeTorque(Vector3.up * yaw * yawForce);
+       rb.AddRelativeTorque(Vector3.up * yaw * magnitude * yawForce);
     }
 
     private void AddRollForce()
@@ -136,6 +141,7 @@ public class PlaneController : MonoBehaviour
 
     private void AddFlapsLiftingForce()
     {
+        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 5);
         rb.AddRelativeForce(Vector3.up * flaps * magnitude * flapsForce);
     }
 

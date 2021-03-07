@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
+    [Header("Игровой интерфейс")]
     [SerializeField] private GameObject timePanel;
     [SerializeField] private Text timeOutput;
     [SerializeField] private GameObject taskPanel;
@@ -11,12 +12,25 @@ public class GameUIController : MonoBehaviour
 
     [SerializeField] private Animator menuAnim;
 
+    [Header("Информация самолета")]
+    [SerializeField] private Slider thrustSlider;
+    [SerializeField] private Text infoOutput;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleMenu();
         }
+    }
+
+    public void UpdatePlaneInfo(float thrust, int rpm, int knots, int altitude)
+    {
+        thrustSlider.value = thrust;
+
+        infoOutput.text = $"{rpm} RPM\n" +
+            $"{knots} KNOTS\n" +
+            $"{altitude} FEET";
     }
 
     public void SetTime(string time)

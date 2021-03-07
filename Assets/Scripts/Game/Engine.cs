@@ -8,7 +8,7 @@ public class Engine : MonoBehaviour
 
     [Header("Управление")]
     private float currentThrust;
-    private float rpm;
+    public float rpm;
     private float maxRpm;
     private float rpmForce;
     public float SpeedAffect;
@@ -34,12 +34,11 @@ public class Engine : MonoBehaviour
         currentThrust = Mathf.Lerp(currentThrust, thrust, 1f / 200f);
         currentThrust = Mathf.Clamp(currentThrust, 0f, 1f);
 
-        rpm = currentThrust * power / 10;
-        // Debug.Log(rpm);
+        rpm = currentThrust * power / 5;
 
-        rpmForce = rpm * 20 * 10;
+        rpmForce = rpm * 100;
 
-        prop.transform.Rotate(-Vector3.forward * (rpm + magnitude / 30f));
+        prop.transform.Rotate(-Vector3.forward * (rpm + magnitude / 30f) / 60);
 
         // При >70% мощности добавляем немного подъемной силы
         // при меньшей мощности — меньше силы

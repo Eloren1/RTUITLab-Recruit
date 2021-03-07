@@ -28,7 +28,19 @@ public class Competition : Gamemode
         // Перемещаем самолет в нужную точку
         planePrefab.transform.position = spawns[level].transform.position;
         planePrefab.transform.rotation = spawns[level].transform.rotation;
-        planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero);
+
+        switch (level)
+        {
+            case 0:
+                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero);
+                break;
+            case 1:
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(74.6f, -0.9f, 72.3f));
+                break;
+            case 2:
+                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero);
+                break;
+        }
 
         // Включаем объект со всеми кольцами
         levels[level].SetActive(true);
