@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int gamemode;
     [SerializeField] private GameObject competition;
     [SerializeField] private GameObject freeFlight;
     [SerializeField] private GameObject tutorial;
-
+    private int gamemode;
     private Gamemode gm;
 
     private void Start()
@@ -29,6 +28,9 @@ public class GameManager : MonoBehaviour
         }
 
         gm = FindObjectOfType<Gamemode>();
-        gm.StartGame();
+        if (gm != null)
+        {
+            gm.StartGame();
+        }
     }
 }

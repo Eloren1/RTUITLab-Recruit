@@ -8,6 +8,19 @@ public class UITutorialTab : MonoBehaviour
         PlayerPrefs.SetInt("Gamemode", 2);
         PlayerPrefs.SetInt("Level", level);
 
+        switch (level)
+        {
+            case 0:
+                PlayerPrefs.SetInt("Weather", 1);
+                break;
+            case 1:
+                PlayerPrefs.SetInt("Weather", 2);
+                break;
+            case 2:
+                PlayerPrefs.SetInt("Weather", 0);
+                break;
+        }
+
         SceneManager.LoadScene(1);
     }
 }

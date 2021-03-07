@@ -33,6 +33,19 @@ public class UICompetitionTab : MonoBehaviour
         PlayerPrefs.SetInt("Gamemode", 0);
         PlayerPrefs.SetInt("Level", level);
 
+        switch (level)
+        {
+            case 0:
+                PlayerPrefs.SetInt("Weather", 0);
+                break;
+            case 1:
+                PlayerPrefs.SetInt("Weather", 2);
+                break;
+            case 2:
+                PlayerPrefs.SetInt("Weather", 2);
+                break;
+        }
+
         SceneManager.LoadScene(1);
     }
 }

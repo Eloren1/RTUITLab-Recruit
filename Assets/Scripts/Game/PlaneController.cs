@@ -74,7 +74,7 @@ public class PlaneController : MonoBehaviour
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
             gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm, 
-                (int)(rb.velocity.magnitude * 3.6f * 0.53996f), 
+                (int)(magnitude * 3.6f * 0.53996f), 
                 (int)(transform.position.y * 3.28084f));
         } else
         {
@@ -95,7 +95,7 @@ public class PlaneController : MonoBehaviour
         rb.velocity = mag * Vector3.Lerp(rb.velocity.normalized, transform.forward, Mathf.Abs(engine.SpeedAffect * angle) / 100);
 
         // Уменьшение вращательной инерции
-        rb.angularVelocity *= 0.98f;
+        rb.angularVelocity *= 0.96f;
 
         if (inputs != null)
         {
@@ -116,8 +116,6 @@ public class PlaneController : MonoBehaviour
             AddPitchForce();
 
             AddFlapsLiftingForce();
-
-            Debug.Log(rb.velocity);
 
             // Уменьшение скорости вперед из-за сопротивления воздуха
             rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(engine.SpeedAffect * angle) * (chassis.IsClosed ? 10000 : 12000));
