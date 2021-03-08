@@ -5,6 +5,7 @@ public class Engine : MonoBehaviour
     [Header("Параметры")]
     [SerializeField] private float power = 51280f;
     [SerializeField] private float liftingForce = 1000f;
+    public bool IsWorking = true;
 
     [Header("Управление")]
     private float currentThrust;
@@ -31,22 +32,31 @@ public class Engine : MonoBehaviour
     {
         SpeedAffect = (magnitude / maxMagnitude) % 1;
 
-        currentThrust = Mathf.Lerp(currentThrust, thrust, 1f / 200f);
-        currentThrust = Mathf.Clamp(currentThrust, 0f, 1f);
+        if (IsWorking)
+        {
+            currentThrust = Mathf.Lerp(currentThrust, thrust, 1f / 200f);
+            currentThrust = Mathf.Clamp(currentThrust, 0f, 1f);
 
-        rpm = currentThrust * power / 5;
+            rpm = currentThrust * power / 5;
 
-        rpmForce = rpm * 100;
+            rpmForce = rpm * 100;
 
-        prop.transform.Rotate(-Vector3.forward * (rpm + magnitude / 30f) / 60);
+            // Движение самолета вперед,
+            // чем выше скорость, тем меньше добавляем силы
+            rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f));
+        } else
+        {
+            rb.velocity *= 0.98f;
+
+            currentThrust = 0;
+            rpm = 0;
+        }
+
+        prop.transform.Rotate(Vector3.forward, rpm * 6f * Time.deltaTime);
 
         // При >70% мощности добавляем немного подъемной силы
         // при меньшей мощности — меньше силы
         rb.AddRelativeForce(Vector3.up * Mathf.Clamp(((rpmForce / maxRpm) - 0.7f), -0.3f, 0.3f) * magnitude * liftingForce);
-
-        // Движение самолета вперед,
-        // чем выше скорость, тем меньше добавляем силы
-        rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f));
     }
 
     private void OnDrawGizmos()

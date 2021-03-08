@@ -16,6 +16,11 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Slider thrustSlider;
     [SerializeField] private Text infoOutput;
 
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -64,6 +69,14 @@ public class GameUIController : MonoBehaviour
     public void ToggleMenu()
     {
         menuAnim.SetBool("Opened", !menuAnim.GetBool("Opened"));
+
+        if (menuAnim.GetBool("Opened"))
+        {
+            Cursor.visible = true;
+        } else
+        {
+            Cursor.visible = false;
+        }
     }
 
     public void Restart()

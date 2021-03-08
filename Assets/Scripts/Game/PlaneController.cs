@@ -8,19 +8,18 @@ using UnityEngine;
 public class PlaneController : MonoBehaviour
 {
     [Header("Параметры")]
-
+    [SerializeField] private float yawForce = 2500f;
+    [SerializeField] private float pitchForce = 3200f;
+    [SerializeField] private float rollForce = 7000f;
+    [SerializeField] private float flapsForce = 5000f;
+    [SerializeField] private float changingSpeed = 0.1f;
 
     [Header("Управление")]
     private float thrust;
     private float yaw;
-    [SerializeField] private float yawForce = 20f;
     private float pitch;
-    [SerializeField] private float pitchForce = 12f;
     private float roll;
-    [SerializeField] private float rollForce = 300f;
     private float flaps;
-    [SerializeField] private float flapsForce = 1000f;
-    [SerializeField] private float changingSpeed = 0.1f;
     private float magnitude;
     private float angle;
     
@@ -31,6 +30,7 @@ public class PlaneController : MonoBehaviour
     private PlaneVisuals planeVisuals;
 
     [Header("Утилиты")]
+    [SerializeField] private PlaneSound sound;
     private Rigidbody rb;
     private Inputs inputs;
     private GameUIController gameUI;
@@ -73,9 +73,12 @@ public class PlaneController : MonoBehaviour
             }
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
+
             gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm, 
                 (int)(magnitude * 3.6f * 0.53996f), 
                 (int)(transform.position.y * 3.28084f));
+
+            sound.UpdateSounds(engine.rpm, transform.position.y * 3.28084f);
         } else
         {
             Debug.LogError("Inputs are not assigned");
@@ -147,5 +150,14 @@ public class PlaneController : MonoBehaviour
     {
         Circle circle = other.GetComponent<Circle>();
         if (circle != null) { circle.Collected(); }
+
+        if (other.CompareTag("Water") && engine.IsWorking)
+        {
+            engine.IsWorking = false;
+
+            Debug.Log("Make lose when collide water"); // Stop game, disable camera
+
+            sound.PlayWaterSplash();
+        }
     }
 }

@@ -9,11 +9,16 @@ public class Chassis : MonoBehaviour
     private bool canToggle = true;
     public bool IsClosed = false;
 
+    [SerializeField] private AudioSource sound;
+
     public void ToggleChassis()
     {
         if (canToggle)
         {
             canToggle = false;
+
+            sound.Play();
+
             StartCoroutine(IsClosed ? Open() : Close());
         }
     }

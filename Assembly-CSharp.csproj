@@ -87,6 +87,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Progress Bar\PBFilled.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerDropdown.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollManager.cs" />
+    <Compile Include="Assets\Scripts\Game\WeatherManager.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Tooltip\TooltipContent.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeMinSlider.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerTooltip.cs" />
@@ -121,7 +122,9 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
     <Compile Include="Assets\Scripts\UI\UITutorialTab.cs" />
     <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
-    <Compile Include="Assets\Scripts\Game\WeatherManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UISoundManager.cs" />
+    <Compile Include="Assets\Scripts\Game\PlaneSound.cs" />
+    <Compile Include="Assets\Scripts\Game\DynamicCameraController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
