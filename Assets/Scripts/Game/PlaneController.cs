@@ -49,10 +49,14 @@ public class PlaneController : MonoBehaviour
     public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
 
     // Метод задает начальные значения, таким образом можно
-    // создавать самолет в воздухе уже летящим
-    public void SetStartValues(Vector3 velocity)
+    // создавать самолет в воздухе уже летящимs
+    public void SetStartValues(Vector3 velocity, float _thrust)
     {
+        if (velocity != Vector3.zero) { chassis.ToggleChassis(); }
+
         rb.velocity = velocity;
+        thrust = _thrust;
+        engine.SetCurrentThrust(_thrust);
     }
 
     private void Update()

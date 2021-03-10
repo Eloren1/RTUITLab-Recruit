@@ -11,6 +11,8 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Text timeOutput;
     [SerializeField] private GameObject taskPanel;
     [SerializeField] private Text taskOutput;
+    [SerializeField] private GameObject subTaskPanel;
+    [SerializeField] private Text subTaskOutput;
 
     [SerializeField] private RectTransform compass;
 
@@ -43,8 +45,8 @@ public class GameUIController : MonoBehaviour
         thrustSlider.value = thrust;
 
         infoOutput.text = $"{rpm} RPM\n" +
-            $"{knots} KNOTS\n" +
-            $"{altitude} FEET";
+            $"{knots} ÓÇËÎÂ\n" +
+            $"{altitude} ÔÓÒÎÂ";
     }
 
     public void SetTime(string time)
@@ -72,6 +74,20 @@ public class GameUIController : MonoBehaviour
         {
             taskPanel.SetActive(false);
             taskOutput.text = "";
+        }
+    }
+
+    public void SetSubTask(string task)
+    {
+        if (task.Length > 0)
+        {
+            subTaskPanel.SetActive(true);
+            subTaskOutput.text = task;
+        }
+        else
+        {
+            subTaskPanel.SetActive(false);
+            subTaskOutput.text = "";
         }
     }
 

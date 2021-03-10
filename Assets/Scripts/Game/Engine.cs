@@ -28,6 +28,11 @@ public class Engine : MonoBehaviour
         maxRpm = power * 20;
     }
 
+    public void SetCurrentThrust(float thrust)
+    {
+        currentThrust = thrust;
+    }
+
     public void AddForce(float thrust, float magnitude)
     {
         SpeedAffect = (magnitude / maxMagnitude) % 1;

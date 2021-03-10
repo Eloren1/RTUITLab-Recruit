@@ -11,7 +11,7 @@ public class UITutorialTab : MonoBehaviour
         switch (level)
         {
             case 0:
-                PlayerPrefs.SetInt("Weather", 1);
+                PlayerPrefs.SetInt("Weather", 0);
                 break;
             case 1:
                 PlayerPrefs.SetInt("Weather", 2);
