@@ -37,7 +37,7 @@ public class Engine : MonoBehaviour
             currentThrust = Mathf.Lerp(currentThrust, thrust, 1f / 200f);
             currentThrust = Mathf.Clamp(currentThrust, 0f, 1f);
 
-            rpm = currentThrust * power / 5;
+            rpm = currentThrust * power / 5 + magnitude;
 
             rpmForce = rpm * 100;
 
@@ -54,9 +54,7 @@ public class Engine : MonoBehaviour
 
         prop.transform.Rotate(Vector3.forward, rpm * 6f * Time.deltaTime);
 
-        // При >70% мощности добавляем немного подъемной силы
-        // при меньшей мощности — меньше силы
-        rb.AddRelativeForce(Vector3.up * Mathf.Clamp(((rpmForce / maxRpm) - 0.7f), -0.3f, 0.3f) * magnitude * liftingForce);
+        rb.AddRelativeForce(Vector3.up * magnitude * liftingForce);
     }
 
     private void OnDrawGizmos()

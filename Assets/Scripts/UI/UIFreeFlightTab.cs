@@ -6,6 +6,11 @@ public class UIFreeFlightTab : MonoBehaviour
 {
     [SerializeField] private Dropdown weatherDropdown;
 
+    private void Start()
+    {
+        ChangeWeather();
+    }
+
     public void Play(int level)
     {
         PlayerPrefs.SetInt("Gamemode", 1);

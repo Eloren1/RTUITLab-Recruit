@@ -4,11 +4,15 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
+    [SerializeField] private Transform target;
+
     [Header("Игровой интерфейс")]
     [SerializeField] private GameObject timePanel;
     [SerializeField] private Text timeOutput;
     [SerializeField] private GameObject taskPanel;
     [SerializeField] private Text taskOutput;
+
+    [SerializeField] private RectTransform compass;
 
     [SerializeField] private Animator menuAnim;
 
@@ -26,6 +30,11 @@ public class GameUIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleMenu();
+        }
+
+        if (target != null)
+        {
+            compass.rotation = Quaternion.Euler(0, 0, target.eulerAngles.y);
         }
     }
 

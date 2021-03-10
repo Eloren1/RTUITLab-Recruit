@@ -12,7 +12,7 @@ public class CameraFollowController : MonoBehaviour
         if (target != null)
         {
             transform.position = target.position + target.TransformDirection(offset);
-            transform.LookAt(target.position + target.forward * 5);
+            transform.LookAt(target.position);
         }
     }
 }
