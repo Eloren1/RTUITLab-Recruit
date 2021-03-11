@@ -6,6 +6,8 @@ public class PlaneSound : MonoBehaviour
 {
     [SerializeField] private AudioSource engine;
     [SerializeField] private AudioSource waterSplash;
+    [SerializeField] private GameObject bankAngle;
+    [SerializeField] private GameObject pullUp;
 
     // Звуки окружающей природы
     [SerializeField] private AudioSource windGround;
@@ -15,8 +17,8 @@ public class PlaneSound : MonoBehaviour
     {
         float rpmAffect = rpm / 5000f;
 
-        engine.volume = rpmAffect;
-        engine.pitch = rpmAffect + 0.2f;
+        engine.volume = 0.3f + rpmAffect / 3 * 2;
+        engine.pitch = 0.2f + rpmAffect;
 
         if (height > 300f)
         {
@@ -27,6 +29,16 @@ public class PlaneSound : MonoBehaviour
             windGround.enabled = true;
             windAir.enabled = false;
         }
+    }
+
+    public void BankAngle(bool active)
+    {
+        bankAngle.SetActive(active);
+    }
+
+    public void PullUp(bool active)
+    {
+        pullUp.SetActive(active);
     }
 
     public void PlayWaterSplash()

@@ -6,6 +6,7 @@ public class Tutorial : Gamemode
 {
     private int level;
     [SerializeField] private GameObject planePrefab;
+    private PlaneController planeController;
     [SerializeField] private Transform[] spawns;
 
     private int stage = -1;
@@ -28,13 +29,15 @@ public class Tutorial : Gamemode
         planePrefab.transform.position = spawns[level].transform.position;
         planePrefab.transform.rotation = spawns[level].transform.rotation;
 
+        planeController = planePrefab.GetComponent<PlaneController>();
+
         switch (level)
         {
             case 0:
                 planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(74.6f, -0.9f, 72.3f), 0.7f);
                 break;
             case 1:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0.05f);
                 break;
             case 2:
                 planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
@@ -48,9 +51,25 @@ public class Tutorial : Gamemode
     {
         if (gameUI != null)
         {
-            if (planePrefab.transform.position.y * 3.28084f < 4000f)
+            switch (level)
             {
-                LostGame();
+                case 0:
+                    if (planePrefab.transform.position.y * 3.28084f < 4000f)
+                    {
+                        LostGame("ÂÛ ÑÏÓÑÒÈËÈÑÜ ÍÀ ÂÛÑÎÒÓ ÌÅÍÅÅ 4000 ÔÓÒÎÂ");
+                    }
+                    if (planeController.Magnitude * 3.6f * 0.53996f < 50f)
+                    {
+                        LostGame("ÑÊÎÐÎÑÒÜ ÑÀÌÎËÅÒÀ ÎÏÓÑÒÈËÀÑÜ ÍÈÆÅ 50 ÓÇËÎÂ");
+                    }
+                    break;
+                case 1:
+                    if (planeController.Magnitude * 3.6f * 0.53996f < 40f &&
+                        planePrefab.transform.position.y * 3.28084f > 100f)
+                    {
+                        LostGame("ÑÊÎÐÎÑÒÜ ÑÀÌÎËÅÒÀ ÎÏÓÑÒÈËÀÑÜ ÍÈÆÅ 40 ÓÇËÎÂ");
+                    }
+                    break;
             }
 
             CheckForTaskCompletion();
@@ -110,6 +129,65 @@ public class Tutorial : Gamemode
                             break;
                     }
                     break;
+
+                case 1:
+                    switch (stage)
+                    {
+                        case 4:
+                            if (Input.GetKey(KeyCode.G))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 6:
+                            if (Input.GetKey(KeyCode.R))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 8:
+                            if (planePrefab.transform.position.y * 3.28084f > 50)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 10:
+                            if (Input.GetKey(KeyCode.C))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 11:
+                            if (planePrefab.transform.position.y * 3.28084f > 500)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 13:
+                            if (Input.GetKey(KeyCode.T))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 16:
+                            if (planePrefab.transform.position.y * 3.28084f > 4000)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 18:
+                            float xAngle = Mathf.Abs(planePrefab.transform.eulerAngles.x > 180 ?
+                                planePrefab.transform.eulerAngles.x - 360 : planePrefab.transform.eulerAngles.x);
+                            float zAngle = Mathf.Abs(planePrefab.transform.eulerAngles.z > 180 ? 
+                                planePrefab.transform.eulerAngles.z - 360 : planePrefab.transform.eulerAngles.z);
+
+                            if (xAngle < 15 && zAngle < 15)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                    }
+                    break;
             }
         }
     }
@@ -128,7 +206,7 @@ public class Tutorial : Gamemode
                         break;
                     case 1:
                         StartCoroutine(ShowTask());
-                        text = "ÈÑÏÎËÜÇÓÉÒÅ [W] È [S] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÒÀÍÃÀÆÀ";
+                        text = "ÇÀÆÈÌÀÉÒÅ [W] È [S] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÒÀÍÃÀÆÀ";
                         break;
                     case 2:
                         StartCoroutine(ShowInstructorText());
@@ -136,11 +214,11 @@ public class Tutorial : Gamemode
                         break;
                     case 3:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Ìû íà âûñîòå 5000 ôóòîâ.\nÏîäíèìèñü íà âûñîòó â 6000 ôóòîâ.»";
+                        text = "«Ìû íà âûñîòå 5000 ôóòîâ.\nÏîäíèìèñü íà âûñîòó 6000 ôóòîâ.»";
                         break;
                     case 4:
                         StartCoroutine(ShowTask());
-                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ Â 6000 ÔÓÒÎÂ";
+                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ 6000 ÔÓÒÎÂ";
                         break;
                     case 5:
                         StartCoroutine(ShowInstructorText());
@@ -148,7 +226,7 @@ public class Tutorial : Gamemode
                         break;
                     case 6:
                         StartCoroutine(ShowTask());
-                        text = "ÈÑÏÎËÜÇÓÉÒÅ [A] È [D] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÊÐÅÍÀ";
+                        text = "ÇÀÆÈÌÀÉÒÅ [A] È [D] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÊÐÅÍÀ";
                         break;
                     case 7:
                         StartCoroutine(ShowInstructorText());
@@ -156,15 +234,15 @@ public class Tutorial : Gamemode
                         break;
                     case 8:
                         StartCoroutine(ShowTask());
-                        text = "ÈÑÏÎËÜÇÓÉÒÅ [W] È [S] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÒÀÍÃÀÆÀ";
+                        text = "ÇÀÆÈÌÀÉÒÅ [W] È [S] ÄËß ÈÇÌÅÍÅÍÈß ÓÃËÀ ÒÀÍÃÀÆÀ";
                         break;
                     case 9:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Äàâàé èçìåíèì íàïðàâëåíèå ïîëåòà íà 180 ãðàäóñîâ.»";
+                        text = "«Íàêðåíè ñàìîëåò íàáîê ïîñèëüíåå è òÿíè óïðàâëåíèå íà ñåáÿ.»";
                         break;
                     case 10:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Íàêðåíè ñàìîëåò ïîñèëüíåå è èçìåíÿé òàíãàæ.»";
+                        text = "«Êîãäà áóäåøü ïîâîðà÷èâàòü,\níå ïîäíèìàé íîñ ñàìîëåòà íàââåðõ. Íå òîðîïèñü.»";
                         break;
                     case 11:
                         StartCoroutine(ShowTask());
@@ -176,11 +254,11 @@ public class Tutorial : Gamemode
                         break;
                     case 13:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Åñëè ïîíàäîáèòñÿ, äîáàâëÿé îáîðîòîâ â äâèãàòåëå.»";
+                        text = "«Äëÿ óñêîðåíèÿ äîáàâëÿé îáîðîòîâ â äâèãàòåëå\nèëè íàêëîíÿé ñàìîëåò âíèç.»";
                         break;
                     case 14:
                         StartCoroutine(ShowTask());
-                        text = "ÈÑÏÎËÜÇÓÉÒÅ [R] È [F] ÄËß ÈÇÌÅÍÅÍÈß ÎÁÎÐÎÒÎÂ";
+                        text = "ÇÀÆÈÌÀÉÒÅ [R] È [F] ÄËß ÐÅÃÓËÈÐÎÂÊÈ ÎÁÎÐÎÒÎÂ";
                         break;
                     case 15:
                         StartCoroutine(ShowInstructorText());
@@ -188,13 +266,99 @@ public class Tutorial : Gamemode
                         break;
                     case 16:
                         StartCoroutine(ShowTask());
-                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ Â 9000 ÔÓÒÎÂ";
+                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ 9000 ÔÓÒÎÂ";
                         break;
                     case 17:
                         StartCoroutine(ShowInstructorText());
                         text = "«Ìîëîäåö.\nÌû âîçâðàùàåìñÿ íà áàçó.»";
                         break;
                     case 18:
+                        CompletedGame();
+                        break;
+                }
+                break;
+
+            case 1:
+                stage++;
+                switch (stage)
+                {
+                    case 0:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«À ñåãîäíÿ ìû çàêðåïèì òâîè çíàíèÿ ïî çàêðûëêàì.»";
+                        break;
+                    case 1:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Çàêðûëêè äàþò äîïîëíèòåëüíóþ ïîäúåìíóþ ñèëó.\nÎíà íóæíà íàì ïðè âçëåòå è ïîñàäêå.»";
+                        break;
+                    case 2:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Äëÿ íà÷àëà, ïåðåä âçëåòîì, íàì íóæíî âûïóñòèòü çàêðûëêè.»";
+                        break;
+                    case 3:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«À ïîòîì, êîãäà ìû ïîäíèìåìñÿ äîñòàòî÷íî âûñîêî,\nòû äîëæåí óáðàòü çàêðûëêè.»";
+                        break;
+                    case 4:
+                        StartCoroutine(ShowTask());
+                        text = "ÇÀÆÈÌÀÉÒÅ [G] ÄËß ÂÛÏÓÑÊÀ ÇÀÊÐÛËÊÎÂ";
+                        break;
+                    case 5:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Òåïåðü íóæíî ïîâûñèòü îáîðîòû äâèãàòåëÿ.\nÈ ìû áóäåì ãîòîâû êî âçëåòó.»";
+                        break;
+                    case 6:
+                        StartCoroutine(ShowTask());
+                        text = "ÇÀÆÈÌÀÉÒÅ [R] È [F] ÄËß ÐÅÃÓËÈÐÎÂÊÈ ÎÁÎÐÎÒÎÂ";
+                        break;
+                    case 7:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Íàì äîñòàòî÷íî ïðèìåðíî 90%\nîò âñåé ìîùíîñòè äâèãàòåëÿ.»";
+                        break;
+                    case 8:
+                        StartCoroutine(ShowTask());
+                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ 50 ÔÓÒÎÂ";
+                        break;
+                    case 9:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Òåïåðü íàì íåîáõîäèìî óáðàòü øàññè\näëÿ óìåíüøåíèÿ ñîïðîòèâëåíèÿ âîçäóõà.»";
+                        break;
+                    case 10:
+                        StartCoroutine(ShowTask());
+                        text = "ÍÀÆÈÌÀÉÒÅ [C] ÄËß ÎÒÊÐÛÒÈß ÈËÈ ÇÀÊÐÛÒÈß ØÀÑÑÈ";
+                        break;
+                    case 11:
+                        StartCoroutine(ShowTask());
+                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ 500 ÔÓÒÎÂ";
+                        break;
+                    case 12:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Íå çàáûë? Òû âñåãäà äîëæåí óáèðàòü çàêðûëêè.»";
+                        break;
+                    case 13:
+                        StartCoroutine(ShowTask());
+                        text = "ÇÀÆÈÌÀÉÒÅ [T] ÄËß ÑÊÐÛÒÈß ÇÀÊÐÛËÊÎÂ";
+                        break;
+                    case 14:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Âñå îòëè÷íî. Ïðîäîëæàåì íàáîð âûñîòû.»";
+                        break;
+                    case 15:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Ñëåäè çà ñêîðîñòüþ è îáîðîòàìè äâèãàòåëÿ,\níå äîïóñêàé ñêîðîñòè ìåíüøå 90 óçëîâ.»";
+                        break;
+                    case 16:
+                        StartCoroutine(ShowTask());
+                        text = "ÏÎÄÍÈÌÈÒÅÑÜ ÍÀ ÂÛÑÎÒÓ 4000 ÔÓÒÎÂ";
+                        break;
+                    case 17:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Õîðîøî ñðàáîòàíî. Âûðàâíèâàé ñàìîëåò\nè ÿ çàáåðó ó òåáÿ óïðàâëåíèå.»";
+                        break;
+                    case 18:
+                        StartCoroutine(ShowTask());
+                        text = "ÂÛÐÎÂÍßÉÒÅ ÑÀÌÎËÅÒ, ×ÒÎÁÛ ÎÍ ËÅÒÅË ÏÐßÌÎ";
+                        break;
+                    case 19:
                         CompletedGame();
                         break;
                 }
@@ -208,7 +372,7 @@ public class Tutorial : Gamemode
 
         gameUI.SetSubTask(text);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
 
         gameUI.SetSubTask("");
 
@@ -223,14 +387,14 @@ public class Tutorial : Gamemode
 
         gameUI.SetTask(text);
 
-        yield return new WaitForSeconds(2);
-
         waitForAction = true;
     }
 
     private IEnumerator TaskCompleted()
     {
         waitForAction = false;
+
+        yield return new WaitForSeconds(1f);
 
         gameUI.SetTask("");
 
@@ -239,13 +403,13 @@ public class Tutorial : Gamemode
         NextStage();
     }
 
-    private void LostGame()
+    private void LostGame(string reason)
     {
         if (gameActive)
         {
             gameActive = false;
 
-            // Âû ñïóñòèëèñü íà âûñîòó ìåíåå 4000 ôóòîâ
+            Debug.LogError("Ðåàëèçîâàòü ýêðàí ïðîèãðûøà! " + reason);
         }
     }
 

@@ -15,8 +15,8 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.105882354, g: 0.10980392, b: 0.11372549, a: 1}
-  m_FogMode: 2
+  m_FogColor: {r: 0.69411767, g: 0.8313726, b: 0.9568628, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
@@ -33113,13 +33113,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247458427}
-  m_LocalRotation: {x: 0.008614796, y: 0.8949709, z: -0.0042932993, w: -0.44602078}
-  m_LocalPosition: {x: -868, y: 17.54, z: 5789.8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.299988, y: 4.200012, z: -97.57001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 755813350}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 232.98, z: 1.103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257309272
 GameObject:
   m_ObjectHideFlags: 0
@@ -43080,8 +43080,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 729737343609105082, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: flapsForce
-      value: 5000
+      propertyPath: pullUpAngle
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 729737343609105083, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
       propertyPath: m_RootOrder
@@ -43127,33 +43127,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 729737343609105084, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: liftingForce
-      value: 5000
-      objectReference: {fileID: 0}
     - target: {fileID: 729737343609105087, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
       propertyPath: m_Name
       value: 'Plane '
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913287198650498464, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.08392191
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913287198650498464, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.60700786
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913287198650498464, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913287198650498464, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7946958
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913287198650498464, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 105.253
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3c12dc047fe5aa409b35b5142eb161a, type: 3}

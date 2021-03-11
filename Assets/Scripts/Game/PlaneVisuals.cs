@@ -36,6 +36,8 @@ public class PlaneVisuals : MonoBehaviour
 
     public void UpdateVisuals(float yaw, float pitch, float roll, float flaps)
     {
+        // Визуальное вращение винта происходит в Engine.cs
+
         rudder.transform.localRotation = Quaternion.Euler(0, maxYawAngle * -yaw, 0);
 
         elevator_r.transform.localRotation = Quaternion.Euler(maxPitchAngle * -pitch, 0, 0);

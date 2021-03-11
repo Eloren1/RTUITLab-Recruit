@@ -12,6 +12,17 @@ public class UIControllerMainMenu : MonoBehaviour
     private void Start()
     {
         ReturnToMainMenu();
+
+        if (!PlayerPrefs.HasKey("Guides"))
+        {
+            AssignStartValues();
+        }
+    }
+
+    private void AssignStartValues()
+    {
+        PlayerPrefs.SetInt("Guides", 1); // Подсказки при посадке включены
+        PlayerPrefs.SetInt("Graphics", 2); // Высокий уровень графики
     }
 
     public void OpenTab(int id)

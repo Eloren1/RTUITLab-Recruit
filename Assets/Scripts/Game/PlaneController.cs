@@ -14,6 +14,13 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float flapsForce = 5000f;
     [SerializeField] private float changingSpeed = 0.1f;
 
+    [SerializeField] private bool warnAboutBankAngle = false;
+    [SerializeField] private float bankAngleZ = 75f;
+    [SerializeField] private bool warnAboutPullUp = true;
+    [SerializeField] private float pullUpAngle = 55f;
+    [Tooltip("Высота в футах")]
+    [SerializeField] private float pullUpHeight = 2000f;
+
     [Header("Управление")]
     private float thrust;
     private float yaw;
@@ -21,6 +28,7 @@ public class PlaneController : MonoBehaviour
     private float roll;
     private float flaps;
     private float magnitude;
+    public float Magnitude { get { return magnitude; } }
     private float angle;
     
     [Header("Компоненты")]
@@ -34,6 +42,7 @@ public class PlaneController : MonoBehaviour
     private Rigidbody rb;
     private Inputs inputs;
     private GameUIController gameUI;
+    private bool guides;
 
     private void Awake()
     {
@@ -44,6 +53,11 @@ public class PlaneController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         gameUI = FindObjectOfType<GameUIController>();
+    }
+
+    private void Start()
+    {
+        guides = PlayerPrefs.GetInt("Guides") == 1;
     }
 
     public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
@@ -71,19 +85,33 @@ public class PlaneController : MonoBehaviour
             if (inputs.Brakes())
             {
                 brakes.Brake();
-            } else
+            }
+            else
             {
                 brakes.Unbrake();
             }
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
 
-            gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm, 
-                (int)(magnitude * 3.6f * 0.53996f), 
+            gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm,
+                (int)(magnitude * 3.6f * 0.53996f),
                 (int)(transform.position.y * 3.28084f));
 
             sound.UpdateSounds(engine.rpm, transform.position.y * 3.28084f);
-        } else
+
+            float xAngle = Mathf.Abs(transform.eulerAngles.x > 180 ? transform.eulerAngles.x-90 - 360 : transform.eulerAngles.x-90);
+            float zAngle = Mathf.Abs(transform.eulerAngles.z > 180 ? transform.eulerAngles.z - 360 : transform.eulerAngles.z);
+
+            if (guides)
+            {
+                if (warnAboutBankAngle)
+                    sound.BankAngle(zAngle > bankAngleZ);
+
+                if (warnAboutPullUp)
+                    sound.PullUp(transform.position.y * 3.28084f < pullUpHeight && xAngle < pullUpAngle);
+            }
+        }
+        else
         {
             Debug.LogError("Inputs are not assigned");
         }
@@ -146,7 +174,7 @@ public class PlaneController : MonoBehaviour
 
     private void AddFlapsLiftingForce()
     {
-        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 5);
+        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 8);
         rb.AddRelativeForce(Vector3.up * flaps * magnitude * flapsForce);
     }
 

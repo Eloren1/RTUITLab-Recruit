@@ -48,7 +48,7 @@ public class Engine : MonoBehaviour
 
             // Движение самолета вперед,
             // чем выше скорость, тем меньше добавляем силы
-            rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f));
+            rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f) * 1.1f);
         } else
         {
             rb.velocity *= 0.98f;
@@ -57,7 +57,7 @@ public class Engine : MonoBehaviour
             rpm = 0;
         }
 
-        prop.transform.Rotate(Vector3.forward, rpm * 6f * Time.deltaTime);
+        prop.transform.Rotate(Vector3.forward, rpm * 6 * Time.deltaTime);
 
         rb.AddRelativeForce(Vector3.up * magnitude * liftingForce);
     }

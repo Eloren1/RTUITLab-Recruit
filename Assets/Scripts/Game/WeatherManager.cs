@@ -19,16 +19,21 @@ public class WeatherManager : MonoBehaviour
         }
         directionalLights[weather].gameObject.SetActive(true);
 
+        RenderSettings.fog = true;
+
         switch (weather)
         {
             case 0: // 30% облаков
-                RenderSettings.fog = false;
+                RenderSettings.fogEndDistance = 12000;
+                RenderSettings.fogColor = new Color32(177, 212, 244, 255);
                 break;
-            case 1: // Туман, облачно
-                RenderSettings.fog = true;
+            case 1: // Туман, тучи
+                RenderSettings.fogEndDistance = 700;
+                RenderSettings.fogColor = new Color32(23, 37, 31, 255);
                 break;
             case 2: // Вечерний закат
-                RenderSettings.fog = false;
+                RenderSettings.fogEndDistance = 10000;
+                RenderSettings.fogColor = new Color32(95, 95, 75, 255);
                 break;
         }
 

@@ -106,6 +106,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Horizontal Selector\HorizontalSelector.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopListShadow.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSlider.cs" />
+    <Compile Include="Assets\Scripts\Game\Gamemodes\Tutorial.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\UIElementInFront.cs" />
     <Compile Include="Assets\Scripts\UI\UICompetitionTab.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButton.cs" />
@@ -126,7 +127,8 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
     <Compile Include="Assets\Scripts\UI\UITutorialTab.cs" />
     <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
-    <Compile Include="Assets\Scripts\Game\Gamemodes\Tutorial.cs" />
+    <Compile Include="Assets\Scripts\UI\UISettings.cs" />
+    <Compile Include="Assets\Scripts\UI\Alert.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
