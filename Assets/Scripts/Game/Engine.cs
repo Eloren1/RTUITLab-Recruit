@@ -6,6 +6,8 @@ public class Engine : MonoBehaviour
     [SerializeField] private float power = 51280f;
     [SerializeField] private float liftingForce = 1000f;
     public bool IsWorking = true;
+    [SerializeField] private float stallSpeed = 40f; // Скорость в узлах, после которой самолет будет падать
+    [SerializeField] private float fallForce = 7000f;
 
     [Header("Управление")]
     private float currentThrust;
@@ -33,7 +35,7 @@ public class Engine : MonoBehaviour
         currentThrust = thrust;
     }
 
-    public void AddForce(float thrust, float magnitude)
+    public void AddForce(float thrust, float magnitude, float knots)
     {
         SpeedAffect = (magnitude / maxMagnitude) % 1;
 
@@ -48,7 +50,20 @@ public class Engine : MonoBehaviour
 
             // Движение самолета вперед,
             // чем выше скорость, тем меньше добавляем силы
-            rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 400f) * 1.1f);
+            rb.AddRelativeForce(Vector3.forward * (rpmForce - magnitude * 500f));
+
+            if (knots < stallSpeed)
+            {
+                float stallAffect = stallSpeed - knots;
+
+                float zAngle = transform.eulerAngles.z > 180 ? transform.eulerAngles.z - 360 : transform.eulerAngles.z;
+                float xAngle = transform.eulerAngles.x > 180 ? transform.eulerAngles.x + 90 - 360 : transform.eulerAngles.x + 90;
+
+                // Самолет будет падать набок в зависимости от угла крена
+                rb.AddRelativeTorque(Vector3.forward * 1500 * stallAffect * (zAngle > 0 ? 1 : -1));
+
+                rb.AddForce(-Vector3.up * stallAffect * fallForce);
+            }
         } else
         {
             rb.velocity *= 0.98f;

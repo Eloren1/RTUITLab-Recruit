@@ -7,7 +7,17 @@ public class CameraFollowController : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset;
 
+    private void OnEnable()
+    {
+        FollowTarget();
+    }
+
     private void Update()
+    {
+        FollowTarget();
+    }
+
+    private void FollowTarget()
     {
         if (target != null)
         {

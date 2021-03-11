@@ -19,7 +19,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private bool warnAboutPullUp = true;
     [SerializeField] private float pullUpAngle = 55f;
     [Tooltip("Высота в футах")]
-    [SerializeField] private float pullUpHeight = 2000f;
+    [SerializeField] private float pullUpHeight = 4000f;
 
     [Header("Управление")]
     private float thrust;
@@ -29,6 +29,7 @@ public class PlaneController : MonoBehaviour
     private float flaps;
     private float magnitude;
     public float Magnitude { get { return magnitude; } }
+    public float SpeedInKnots;
     private float angle;
     
     [Header("Компоненты")]
@@ -90,26 +91,18 @@ public class PlaneController : MonoBehaviour
             {
                 brakes.Unbrake();
             }
+            
+            // TODO: Если самолет преодолел опр скорость (320) то проигрыш
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
 
             gameUI.UpdatePlaneInfo(thrust, (int)engine.rpm,
-                (int)(magnitude * 3.6f * 0.53996f),
+                (int)(SpeedInKnots),
                 (int)(transform.position.y * 3.28084f));
 
             sound.UpdateSounds(engine.rpm, transform.position.y * 3.28084f);
 
-            float xAngle = Mathf.Abs(transform.eulerAngles.x > 180 ? transform.eulerAngles.x-90 - 360 : transform.eulerAngles.x-90);
-            float zAngle = Mathf.Abs(transform.eulerAngles.z > 180 ? transform.eulerAngles.z - 360 : transform.eulerAngles.z);
-
-            if (guides)
-            {
-                if (warnAboutBankAngle)
-                    sound.BankAngle(zAngle > bankAngleZ);
-
-                if (warnAboutPullUp)
-                    sound.PullUp(transform.position.y * 3.28084f < pullUpHeight && xAngle < pullUpAngle);
-            }
+            WarningSounds();
         }
         else
         {
@@ -117,9 +110,28 @@ public class PlaneController : MonoBehaviour
         }
     }
 
+    private void WarningSounds()
+    {
+        float xAngle = Mathf.Abs(transform.eulerAngles.x > 180 ? transform.eulerAngles.x - 90 - 360 : transform.eulerAngles.x - 90);
+        float zAngle = Mathf.Abs(transform.eulerAngles.z > 180 ? transform.eulerAngles.z - 360 : transform.eulerAngles.z);
+
+        if (guides)
+        {
+            if (warnAboutBankAngle)
+                sound.BankAngle(zAngle > bankAngleZ);
+
+            if (warnAboutPullUp)
+                sound.PullUp(transform.position.y * 3.28084f < pullUpHeight && xAngle < pullUpAngle);
+        }
+
+        // Если самолет взлетел, а скорость ниже 50, то включаем предупреждающий звук
+        sound.CheckSpeed(SpeedInKnots > 240 || (SpeedInKnots < 50 && transform.position.y * 3.28084f > 100f));
+    }
+
     private void FixedUpdate()
     {
         magnitude = transform.InverseTransformDirection(rb.velocity).z;
+        SpeedInKnots = magnitude * 3.6f * 0.53996f;
 
         angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
         // Debug.Log(angle);
@@ -144,7 +156,7 @@ public class PlaneController : MonoBehaviour
             roll = Mathf.Lerp(roll, inputs.RollNormalized(), changingSpeed);
 
 
-            engine.AddForce(thrust, magnitude);
+            engine.AddForce(thrust, magnitude, SpeedInKnots);
 
             AddYawForce();
             AddRollForce();
@@ -181,7 +193,12 @@ public class PlaneController : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         Circle circle = other.GetComponent<Circle>();
-        if (circle != null) { circle.Collected(); }
+        if (circle != null)
+        {
+            // SOUND: TODO: Play collected sound
+
+            circle.Collected();
+        }
 
         if (other.CompareTag("Water") && engine.IsWorking)
         {

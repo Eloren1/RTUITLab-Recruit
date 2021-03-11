@@ -4,12 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Circle : MonoBehaviour
 {
+    private bool collected = false;
+
     public void Collected()
     {
-        FindObjectOfType<Competition>().CircleCollected();
+        if (!collected)
+        {
+            collected = true;
 
-        // SOUND: TODO: Play collected sound
+            FindObjectOfType<Competition>().CircleCollected();
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

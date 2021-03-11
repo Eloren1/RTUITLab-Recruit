@@ -8,6 +8,7 @@ public class PlaneSound : MonoBehaviour
     [SerializeField] private AudioSource waterSplash;
     [SerializeField] private GameObject bankAngle;
     [SerializeField] private GameObject pullUp;
+    [SerializeField] private GameObject checkSpeed;
 
     // Звуки окружающей природы
     [SerializeField] private AudioSource windGround;
@@ -39,6 +40,11 @@ public class PlaneSound : MonoBehaviour
     public void PullUp(bool active)
     {
         pullUp.SetActive(active);
+    }
+
+    public void CheckSpeed(bool active)
+    {
+        checkSpeed.SetActive(active);
     }
 
     public void PlayWaterSplash()

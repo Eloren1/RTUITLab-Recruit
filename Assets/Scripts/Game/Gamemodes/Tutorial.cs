@@ -58,13 +58,13 @@ public class Tutorial : Gamemode
                     {
                         LostGame("бш яосярхкхяэ мю бшянрс лемее 4000 тсрнб");
                     }
-                    if (planeController.Magnitude * 3.6f * 0.53996f < 50f)
+                    if (planeController.SpeedInKnots < 50f)
                     {
                         LostGame("яйнпнярэ яюлнкерю носярхкюяэ мхфе 50 сгкнб");
                     }
                     break;
                 case 1:
-                    if (planeController.Magnitude * 3.6f * 0.53996f < 40f &&
+                    if (planeController.SpeedInKnots < 40f &&
                         planePrefab.transform.position.y * 3.28084f > 100f)
                     {
                         LostGame("яйнпнярэ яюлнкерю носярхкюяэ мхфе 40 сгкнб");

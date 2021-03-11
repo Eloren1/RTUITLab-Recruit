@@ -32,7 +32,7 @@ public class Competition : Gamemode
         switch (level)
         {
             case 0:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-17f, 3f, -24f), 0.6f);
                 break;
             case 1:
                 planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
@@ -98,6 +98,8 @@ public class Competition : Gamemode
     {
         StopAllCoroutines();
         int currentRecord = PlayerPrefs.GetInt("Competition " + level);
+
+        Debug.LogError("Completed game");
 
         // TODO: Say about old record, new time and button to exit or rerun
 

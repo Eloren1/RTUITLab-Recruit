@@ -59,7 +59,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerModalWindow.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Animated Icon\AnimatedIconHandler.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSliderEditor.cs" />
-    <Compile Include="Assets\Scripts\Game\CameraFollowController.cs" />
+    <Compile Include="Assets\Scripts\Game\Cameras\CameraFollowController.cs" />
     <Compile Include="Assets\Scripts\UI\UIFreeFlightTab.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoTopButton.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Fixes\LayoutGroupPositionFix.cs" />
@@ -69,6 +69,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\LaunchURL.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Slider\SliderManager.cs" />
     <Compile Include="Assets\Scripts\Game\PlaneVisuals.cs" />
+    <Compile Include="Assets\Scripts\UI\Alert.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerNotification.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerToggle.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerAnimatedIcon.cs" />
@@ -84,12 +85,13 @@
     <Compile Include="Assets\Scripts\Inputs\KeyboardInputs.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Progress Bar\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Game\Gamemodes\Circle.cs" />
-    <Compile Include="Assets\Scripts\Game\DynamicCameraController.cs" />
+    <Compile Include="Assets\Scripts\Game\Cameras\DynamicCameraController.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Input Field\CustomInputField.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Progress Bar\PBFilled.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerDropdown.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollManager.cs" />
     <Compile Include="Assets\Scripts\Game\WeatherManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UISettings.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Tooltip\TooltipContent.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeMinSlider.cs" />
     <Compile Include="Assets\Scripts\UI\UISoundManager.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Slider\RangeSlider.cs" />
     <Compile Include="Assets\Scripts\Game\GameUIController.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButtonEditor.cs" />
-    <Compile Include="Assets\Scripts\Game\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Cameras\CameraManager.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerSwitch.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerScrollbar.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Dropdown\CustomDropdown.cs" />
@@ -127,8 +129,6 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
     <Compile Include="Assets\Scripts\UI\UITutorialTab.cs" />
     <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
-    <Compile Include="Assets\Scripts\UI\UISettings.cs" />
-    <Compile Include="Assets\Scripts\UI\Alert.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
