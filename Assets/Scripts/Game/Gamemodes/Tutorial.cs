@@ -7,6 +7,7 @@ public class Tutorial : Gamemode
     private int level;
     [SerializeField] private GameObject planePrefab;
     private PlaneController planeController;
+    private Engine engine;
     [SerializeField] private Transform[] spawns;
 
     private int stage = -1;
@@ -30,6 +31,7 @@ public class Tutorial : Gamemode
         planePrefab.transform.rotation = spawns[level].transform.rotation;
 
         planeController = planePrefab.GetComponent<PlaneController>();
+        engine = planePrefab.GetComponent<Engine>();
 
         switch (level)
         {
@@ -37,10 +39,10 @@ public class Tutorial : Gamemode
                 planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(70f, -2f, 70f), 0.8f);
                 break;
             case 1:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0.05f);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0.02f);
                 break;
             case 2:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(0f, 3f, 35f), 0.7f);
                 break;
         }
 
@@ -70,6 +72,7 @@ public class Tutorial : Gamemode
                         LostGame("СКОРОСТЬ САМОЛЕТА ОПУСТИЛАСЬ НИЖЕ 40 УЗЛОВ");
                     }
                     break;
+                case 2: goto case 1;
             }
 
             CheckForTaskCompletion();
@@ -182,6 +185,60 @@ public class Tutorial : Gamemode
                                 planePrefab.transform.eulerAngles.z - 360 : planePrefab.transform.eulerAngles.z);
 
                             if (xAngle < 15 && zAngle < 15)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch (stage)
+                    {
+                        case 3:
+                            if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.F))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 4:
+                            if (Input.GetKey(KeyCode.G) || Input.GetKey(KeyCode.T))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 7:
+                            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 9:
+                            if (planeController.SpeedInKnots < 70)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 11:
+                            if (planePrefab.transform.position.y * 3.28084f < 300)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 13:
+                            if (planePrefab.transform.position.y * 3.28084f < 20)
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 14:
+                            if (Input.GetKey(KeyCode.B))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
+                        case 15:
+                            if (Mathf.Abs(planeController.SpeedInKnots) < 2f && engine.rpm < 150f)
                             {
                                 StartCoroutine(TaskCompleted());
                             }
@@ -320,7 +377,7 @@ public class Tutorial : Gamemode
                         break;
                     case 9:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Теперь нам необходимо убрать шасси\nдля уменьшения сопротивления воздуха.»";
+                        text = "«Теперь нам необходимо убрать шасси\nдля уменьшения сопротивления с воздухом.»";
                         break;
                     case 10:
                         StartCoroutine(ShowTask());
@@ -359,6 +416,108 @@ public class Tutorial : Gamemode
                         text = "ВЫРОВНЯЙТЕ САМОЛЕТ, ЧТОБЫ ОН ЛЕТЕЛ ПРЯМО";
                         break;
                     case 19:
+                        CompletedGame();
+                        break;
+                }
+                break;
+
+            case 2:
+                stage++;
+                switch (stage)
+                {
+                    case 0:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Мы уже подлетаем.\nНичего не трогай и слушай меня.»";
+                        break;
+                    case 1:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Держи скорость в районе 80 узлов.»";
+                        break;
+                    case 2:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Понемногу снижай обороты\nи компенсируй их выпуском закрылков.»";
+                        break;
+                    case 3:
+                        StartCoroutine(ShowTask());
+                        text = "ЗАЖИМАЙТЕ [R] И [F] ДЛЯ РЕГУЛИРОВКИ ОБОРОТОВ";
+                        break;
+                    case 4:
+                        StartCoroutine(ShowTask());
+                        text = "ЗАЖИМАЙТЕ [T] и [G] ДЛЯ РЕГУЛИРОВКИ ЗАКРЫЛКОВ";
+                        break;
+                    case 5:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Нужно делать все постепенно и не торопясь.»";
+                        break;
+                    case 6:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Следи за скоростью нашего снижения.\nМы должны снижаться под углом 3 градуса.»";
+                        break;
+                    case 7:
+                        StartCoroutine(ShowTask());
+                        text = "ЗАЖИМАЙТЕ [W] И [S] ДЛЯ ИЗМЕНЕНИЯ УГЛА ТАНГАЖА";
+                        break;
+                    case 8:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Снижай скорость и продолжай\nпостепенно выпускать закрылки.»";
+                        break;
+                    case 9:
+                        StartCoroutine(ShowTask());
+                        text = "СНИЗЬТЕ СКОРОСТЬ ДО 70 УЗЛОВ";
+                        break;
+                    case 10:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Мы можем уже выпускать шасси.»";
+                        break;
+                    case 11:
+                        StartCoroutine(ShowTask());
+                        text = "ОПУСТИТЕСЬ НА ВЫСОТУ 300 ФУТОВ";
+                        break;
+                    case 12:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Садимся.»";
+                        break;
+                    case 13:
+                        StartCoroutine(ShowTask());
+                        text = "ОПУСТИТЕСЬ НА ВЫСОТУ 20 ФУТОВ";
+                        break;
+                    case 14:
+                        StartCoroutine(ShowTask());
+                        text = "ЗАЖИМАЙТЕ [B] ДЛЯ ТОРМОЖЕНИЯ КОЛЕСАМИ ШАССИ";
+                        break;
+                    case 15:
+                        StartCoroutine(ShowTask());
+                        text = "ПОЛНОСТЬЮ ОСТАНОВИТЕ САМОЛЕТ";
+                        break;
+                    case 16:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Отлично сработано.»";
+                        break;
+                    case 17:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Ты великолепно показал себя.»";
+                        break;
+                    case 18: 
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Когда будешь летать самостоятельно, никогда не спеши.»";
+                         break;
+                    case 19:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Помни, что для посадки нужно выравнивать самолет\nза несколько километров до полосы.»";
+                        break;  
+                    case 20:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Пилот всегда должен стремиться к новым знаниям.»";
+                        break;
+                    case 21:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Никогда не забывай, чему я тебя учил.»";
+                        break;
+                    case 22:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«До встречи.»";
+                        break;
+                    case 23:
                         CompletedGame();
                         break;
                 }

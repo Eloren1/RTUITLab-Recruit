@@ -199,13 +199,13 @@ public class PlaneController : MonoBehaviour
 
     private void AddFlapsLiftingForce()
     {
-        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 10);
+        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 14);
         rb.AddRelativeForce(Vector3.up * flaps * magnitude * flapsForce);
     }
 
     private void AddWingLiftingForce()
     {
-        rb.AddRelativeTorque(Vector3.right * magnitude * -pitchForce / 10 * flapsForceToLiftingForce);
+        rb.AddRelativeTorque(Vector3.right * magnitude * -pitchForce / 14 * flapsForceToLiftingForce);
         rb.AddRelativeForce(Vector3.up * magnitude * flapsForce * flapsForceToLiftingForce);
     }
 

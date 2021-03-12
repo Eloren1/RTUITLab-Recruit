@@ -24,16 +24,16 @@ public class WeatherManager : MonoBehaviour
         switch (weather)
         {
             case 0: // 30% облаков
-                RenderSettings.fogEndDistance = 12000;
+                RenderSettings.fogEndDistance = 10000;
                 RenderSettings.fogColor = new Color32(177, 212, 244, 255);
                 break;
             case 1: // Туман, тучи
-                RenderSettings.fogEndDistance = 700;
+                RenderSettings.fogEndDistance = 1000;
                 RenderSettings.fogColor = new Color32(23, 37, 31, 255);
                 break;
             case 2: // Вечерний закат
-                RenderSettings.fogEndDistance = 10000;
-                RenderSettings.fogColor = new Color32(95, 95, 75, 255);
+                RenderSettings.fogEndDistance = 5000;
+                RenderSettings.fogColor = new Color32(55, 70, 70, 255);
                 break;
         }
 
