@@ -32,7 +32,7 @@ public class Competition : Gamemode
         switch (level)
         {
             case 0:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-17f, 3f, -24f), 0.6f);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-20f, 3f, -25f), 0.7f);
                 break;
             case 1:
                 planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);

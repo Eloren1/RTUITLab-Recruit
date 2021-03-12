@@ -7,12 +7,22 @@ using UnityEngine;
 [RequireComponent(typeof(Brakes))]
 public class PlaneController : MonoBehaviour
 {
+    [SerializeField] private float gravityScale = 1.0f;
+    public static float globalGravity = -14.1264f;
+
     [Header("ѕараметры")]
     [SerializeField] private float yawForce = 2500f;
     [SerializeField] private float pitchForce = 3200f;
     [SerializeField] private float rollForce = 7000f;
-    [SerializeField] private float flapsForce = 5000f;
+    [SerializeField] private float flapsForce = 25000f;
+    [Tooltip(" ака€ часть силы Flaps будет посто€нно добавл€тьс€ как подъемна€")]
+    [Range(0.0f, 1.0f)]
+    [SerializeField] private float flapsForceToLiftingForce = 0.25f;
     [SerializeField] private float changingSpeed = 0.1f;
+
+    [SerializeField] private float minSpeedAlarm = 50f;
+    [SerializeField] private float maxSpeedAlarm = 190f;
+
 
     [SerializeField] private bool warnAboutBankAngle = false;
     [SerializeField] private float bankAngleZ = 75f;
@@ -124,17 +134,22 @@ public class PlaneController : MonoBehaviour
                 sound.PullUp(transform.position.y * 3.28084f < pullUpHeight && xAngle < pullUpAngle);
         }
 
-        // ≈сли самолет взлетел, а скорость ниже 50, то включаем предупреждающий звук
-        sound.CheckSpeed(SpeedInKnots > 240 || (SpeedInKnots < 50 && transform.position.y * 3.28084f > 100f));
+        sound.CheckSpeed(SpeedInKnots > maxSpeedAlarm || 
+                        (SpeedInKnots < minSpeedAlarm && transform.position.y * 3.28084f > 100f));
+    }
+
+    private void AddCustomGravity()
+    {
+        rb.AddForce(Vector3.up * globalGravity * gravityScale * Mathf.Clamp(1.6f - (SpeedInKnots / 120), 0.1f, 1000f), ForceMode.Acceleration);
     }
 
     private void FixedUpdate()
     {
-        magnitude = transform.InverseTransformDirection(rb.velocity).z;
         SpeedInKnots = magnitude * 3.6f * 0.53996f;
-
+        magnitude = transform.InverseTransformDirection(rb.velocity).z;
         angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
-        // Debug.Log(angle);
+
+        AddCustomGravity();
 
         // —опротивление воздуха от крыльев под наклоном,
         // спуст€ врем€ направление самолета будет выравниватьс€
@@ -163,9 +178,7 @@ public class PlaneController : MonoBehaviour
             AddPitchForce();
 
             AddFlapsLiftingForce();
-
-            // ”меньшение скорости вперед из-за сопротивлени€ воздуха
-            rb.AddRelativeForce(-Vector3.forward * Mathf.Abs(engine.SpeedAffect * angle) * (chassis.IsClosed ? 10000 : 12000));
+            AddWingLiftingForce();
         }
     }
 
@@ -186,8 +199,14 @@ public class PlaneController : MonoBehaviour
 
     private void AddFlapsLiftingForce()
     {
-        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 8);
+        rb.AddRelativeTorque(Vector3.right * flaps * magnitude * -pitchForce / 10);
         rb.AddRelativeForce(Vector3.up * flaps * magnitude * flapsForce);
+    }
+
+    private void AddWingLiftingForce()
+    {
+        rb.AddRelativeTorque(Vector3.right * magnitude * -pitchForce / 10 * flapsForceToLiftingForce);
+        rb.AddRelativeForce(Vector3.up * magnitude * flapsForce * flapsForceToLiftingForce);
     }
 
     public void OnTriggerEnter(Collider other)

@@ -34,7 +34,7 @@ public class Tutorial : Gamemode
         switch (level)
         {
             case 0:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(74.6f, -0.9f, 72.3f), 0.7f);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(70f, -2f, 70f), 0.8f);
                 break;
             case 1:
                 planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0.05f);
@@ -54,9 +54,9 @@ public class Tutorial : Gamemode
             switch (level)
             {
                 case 0:
-                    if (planePrefab.transform.position.y * 3.28084f < 4000f)
+                    if (planePrefab.transform.position.y * 3.28084f < 3000f)
                     {
-                        LostGame("ВЫ СПУСТИЛИСЬ НА ВЫСОТУ МЕНЕЕ 4000 ФУТОВ");
+                        LostGame("ВЫ СПУСТИЛИСЬ НА ВЫСОТУ МЕНЕЕ 3000 ФУТОВ");
                     }
                     if (planeController.SpeedInKnots < 50f)
                     {
@@ -250,7 +250,7 @@ public class Tutorial : Gamemode
                         break;
                     case 12:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Внимательно следи за скоростью.\nНе допускай скорости ниже 90 узлов.»";
+                        text = "«Внимательно следи за скоростью.\nНе допускай скорости ниже 80 узлов.»";
                         break;
                     case 13:
                         StartCoroutine(ShowInstructorText());
@@ -292,7 +292,7 @@ public class Tutorial : Gamemode
                         break;
                     case 2:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Для начала, перед взлетом, нам нужно выпустить закрылки.»";
+                        text = "«Для начала, перед взлетом, нам нужно выпустить закрылки наполовину.»";
                         break;
                     case 3:
                         StartCoroutine(ShowInstructorText());
@@ -312,7 +312,7 @@ public class Tutorial : Gamemode
                         break;
                     case 7:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Нам достаточно примерно 90%\nот всей мощности двигателя.»";
+                        text = "«Нам достаточно примерно 80%\nот всей мощности двигателя.»";
                         break;
                     case 8:
                         StartCoroutine(ShowTask());
