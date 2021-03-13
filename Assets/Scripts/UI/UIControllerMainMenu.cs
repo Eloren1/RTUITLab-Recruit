@@ -9,20 +9,31 @@ public class UIControllerMainMenu : MonoBehaviour
 
     [SerializeField] private GameObject mainMenu;
 
-    private void Start()
+    private void Awake()
     {
-        ReturnToMainMenu();
-
         if (!PlayerPrefs.HasKey("Guides"))
         {
             AssignStartValues();
         }
+
+        ChangeGraphics();
     }
 
     private void AssignStartValues()
     {
         PlayerPrefs.SetInt("Guides", 1); // Подсказки при посадке включены
-        PlayerPrefs.SetInt("Graphics", 2); // Высокий уровень графики
+        PlayerPrefs.SetInt("Graphics", 2); // Средний уровень графики
+    }
+
+    private void ChangeGraphics()
+    {
+        int graphics = PlayerPrefs.GetInt("Graphics");
+        QualitySettings.SetQualityLevel(graphics, true);
+    }
+
+    private void Start()
+    {
+        ReturnToMainMenu();
     }
 
     public void OpenTab(int id)

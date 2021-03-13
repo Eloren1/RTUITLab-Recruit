@@ -22,6 +22,11 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Slider thrustSlider;
     [SerializeField] private Text infoOutput;
 
+    [Header("Ёкран окончани€ игры")]
+    [SerializeField] private GameObject endingScreen;
+    [SerializeField] private Text mainTextOutput;
+    [SerializeField] private Text subTextOutput;
+
     private void Start()
     {
         Cursor.visible = false;
@@ -102,6 +107,23 @@ public class GameUIController : MonoBehaviour
         {
             Cursor.visible = false;
         }
+    }
+
+    public void ShowEndingScreen(string mainText, string subText, bool positive)
+    {
+        //// Ќемного неподход€щее место дл€ этого, но универсально дл€ разных режимов
+        //foreach (var camera in FindObjectsOfType<Camera>())
+        //{
+        //    camera.gameObject.SetActive(false);
+        //}
+
+        Time.timeScale = 0; // TODO: Test it!
+
+        endingScreen.SetActive(true);
+        Cursor.visible = true;
+
+        mainTextOutput.text = mainText;
+        subTextOutput.text = subText;
     }
 
     public void Restart()

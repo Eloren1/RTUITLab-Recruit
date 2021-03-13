@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlaneSound : MonoBehaviour
 {
-    [SerializeField] private AudioSource engine;
+    [Header("Одиночные звуки")]
     [SerializeField] private AudioSource waterSplash;
+    [SerializeField] private AudioSource collectedSound;
+
+    [Header("Повторяющиеся звуки")]
+    [SerializeField] private AudioSource engine;
+    [SerializeField] private AudioSource windGround;
+    [SerializeField] private AudioSource windAir;
+
+    [Header("Предупреждающие звуки")]
     [SerializeField] private GameObject bankAngle;
     [SerializeField] private GameObject pullUp;
     [SerializeField] private GameObject checkSpeed;
-
-    // Звуки окружающей природы
-    [SerializeField] private AudioSource windGround;
-    [SerializeField] private AudioSource windAir;
 
     public void UpdateSounds(float rpm, float height)
     {
@@ -50,5 +54,10 @@ public class PlaneSound : MonoBehaviour
     public void PlayWaterSplash()
     {
         waterSplash.Play();
+    }
+
+    public void PlayCollectedSound()
+    {
+        collectedSound.Play();
     }
 }

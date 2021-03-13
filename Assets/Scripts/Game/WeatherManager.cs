@@ -29,7 +29,7 @@ public class WeatherManager : MonoBehaviour
                 break;
             case 1: // Туман, тучи
                 RenderSettings.fogEndDistance = 1000;
-                RenderSettings.fogColor = new Color32(23, 37, 31, 255);
+                RenderSettings.fogColor = new Color32(37, 37, 37, 255);
                 break;
             case 2: // Вечерний закат
                 RenderSettings.fogEndDistance = 5000;

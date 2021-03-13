@@ -21,8 +21,8 @@ public class PlaneController : MonoBehaviour
     [SerializeField] private float changingSpeed = 0.1f;
 
     [SerializeField] private float minSpeedAlarm = 50f;
-    [SerializeField] private float maxSpeedAlarm = 190f;
-
+    [SerializeField] private float maxSpeedAlarm = 220f;
+    [SerializeField] private float maxSpeedBeforeLose = 280f;
 
     [SerializeField] private bool warnAboutBankAngle = false;
     [SerializeField] private float bankAngleZ = 75f;
@@ -54,6 +54,7 @@ public class PlaneController : MonoBehaviour
     private Inputs inputs;
     private GameUIController gameUI;
     private bool guides;
+    private bool isGameActive = true;
 
     private void Awake()
     {
@@ -86,6 +87,8 @@ public class PlaneController : MonoBehaviour
 
     private void Update()
     {
+        if (!isGameActive) return;
+
         if (inputs != null)
         {
             if (inputs.ToggleChassis())
@@ -101,8 +104,11 @@ public class PlaneController : MonoBehaviour
             {
                 brakes.Unbrake();
             }
-            
-            // TODO: Если самолет преодолел опр скорость (320) то проигрыш
+
+            if (SpeedInKnots > maxSpeedBeforeLose)
+            {
+                StopGame("СЛИШКОМ БОЛЬШАЯ СКОРОСТЬ САМОЛЕТА");
+            }
 
             planeVisuals.UpdateVisuals(yaw, pitch, roll, flaps);
 
@@ -145,6 +151,8 @@ public class PlaneController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isGameActive) return;
+
         SpeedInKnots = magnitude * 3.6f * 0.53996f;
         magnitude = transform.InverseTransformDirection(rb.velocity).z;
         angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
@@ -211,21 +219,40 @@ public class PlaneController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        // Пролет через кольцо в соренованиях
         Circle circle = other.GetComponent<Circle>();
         if (circle != null)
         {
-            // SOUND: TODO: Play collected sound
-
+            sound.PlayCollectedSound();
             circle.Collected();
         }
 
+        // Падение самолета в воду
         if (other.CompareTag("Water") && engine.IsWorking)
         {
-            engine.IsWorking = false;
-
-            Debug.Log("Make lose when collide water"); // Stop game, disable camera
+            StopGame("САМОЛЕТ СТОЛКНУЛСЯ С ВОДОЙ");
 
             sound.PlayWaterSplash();
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        // Вылет самолета за границы
+        if (other.CompareTag("Map Edge"))
+        {
+            StopGame("ВЫ ВЫЛЕТЕЛИ ЗА ГРАНИЦЫ КАРТЫ");
+        }
+    }
+
+    public void StopGame(string reason)
+    {
+        if (isGameActive)
+        {
+            isGameActive = false;
+            engine.IsWorking = false;
+
+            gameUI.ShowEndingScreen(reason, "", false);
         }
     }
 }

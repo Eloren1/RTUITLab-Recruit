@@ -14,7 +14,8 @@ public class Tutorial : Gamemode
     private bool waitForAction = false;
     private string text;
 
-    private bool gameActive = true;
+    private bool gameActive = false;
+    private bool canCheck = false;
     private GameUIController gameUI;
 
     private void Awake()
@@ -46,12 +47,23 @@ public class Tutorial : Gamemode
                 break;
         }
 
+        gameActive = true;
+        StartCoroutine(SetCanCheck());
+
         NextStage();
+    }
+
+    // Делаем canCheck = true спустя время после запуска,
+    // Так как самолет в момент появления имеет неправильную скорость
+    private IEnumerator SetCanCheck()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canCheck = true;
     }
 
     private void Update()
     {
-        if (gameUI != null)
+        if (gameUI != null && canCheck)
         {
             switch (level)
             {
@@ -214,7 +226,7 @@ public class Tutorial : Gamemode
                             }
                             break;
                         case 9:
-                            if (planeController.SpeedInKnots < 70)
+                            if (planeController.SpeedInKnots < 75 && planeController.SpeedInKnots > 65)
                             {
                                 StartCoroutine(TaskCompleted());
                             }
@@ -357,7 +369,7 @@ public class Tutorial : Gamemode
                         break;
                     case 4:
                         StartCoroutine(ShowTask());
-                        text = "ЗАЖИМАЙТЕ [G] ДЛЯ ВЫПУСКА ЗАКРЫЛКОВ";
+                        text = "ЗАЖИМАЙТЕ [T] и [G] ДЛЯ РЕГУЛИРОВКИ ЗАКРЫЛКОВ";
                         break;
                     case 5:
                         StartCoroutine(ShowInstructorText());
@@ -451,7 +463,7 @@ public class Tutorial : Gamemode
                         break;
                     case 6:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Следи за скоростью нашего снижения.\nМы должны снижаться под углом 3 градуса.»";
+                        text = "«Следи за скоростью нашего снижения.\nМы должны медленно, но постоянно снижаться.»";
                         break;
                     case 7:
                         StartCoroutine(ShowTask());
@@ -463,7 +475,7 @@ public class Tutorial : Gamemode
                         break;
                     case 9:
                         StartCoroutine(ShowTask());
-                        text = "СНИЗЬТЕ СКОРОСТЬ ДО 70 УЗЛОВ";
+                        text = "ДЕРЖИТЕ СКОРОСТЬ ОКОЛО 70 УЗЛОВ";
                         break;
                     case 10:
                         StartCoroutine(ShowInstructorText());
@@ -507,7 +519,7 @@ public class Tutorial : Gamemode
                         break;  
                     case 20:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Пилот всегда должен стремиться к новым знаниям.»";
+                        text = "«И что пилот всегда должен\nстремиться к новым знаниям.»";
                         break;
                     case 21:
                         StartCoroutine(ShowInstructorText());
@@ -568,12 +580,12 @@ public class Tutorial : Gamemode
         {
             gameActive = false;
 
-            Debug.LogError("Реализовать экран проигрыша! " + reason);
+            gameUI.ShowEndingScreen(reason, "", false);
         }
     }
 
     public override void CompletedGame()
     {
-        throw new System.NotImplementedException();
+        gameUI.ShowEndingScreen((level + 1).ToString() + " УРОВЕНЬ ОБУЧЕНИЯ ПРОЙДЕН", "", true);
     }
 }

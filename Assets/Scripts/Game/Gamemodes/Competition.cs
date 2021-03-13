@@ -38,7 +38,7 @@ public class Competition : Gamemode
                 planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
                 break;
             case 2:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
+                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-20f, 3f, -25f), 0.7f);
                 break;
         }
 
@@ -76,6 +76,8 @@ public class Competition : Gamemode
 
     private string GetTime(int time)
     {
+        if (time <= 0) { return "--:--:--"; }
+
         int seconds = time % 60;
         int minutes = (time / 60) % 60;
         int hours = (time / 60) / 60;
@@ -86,7 +88,7 @@ public class Competition : Gamemode
 
     private IEnumerator Timer()
     {
-        while (true) // TODO: Make statement
+        while (true)
         {
             yield return new WaitForSeconds(1);
             seconds++;
@@ -99,13 +101,14 @@ public class Competition : Gamemode
         StopAllCoroutines();
         int currentRecord = PlayerPrefs.GetInt("Competition " + level);
 
-        Debug.LogError("Completed game");
-
-        // TODO: Say about old record, new time and button to exit or rerun
+        string subText = $"ÂÐÅÌß: { GetTime(seconds) }\n" +
+                         $"ÐÅÊÎÐÄ: { GetTime(currentRecord) }";
 
         if (currentRecord > 1 && seconds > 1 && seconds < currentRecord)
         {
             PlayerPrefs.SetInt("Competition " + level, seconds);
         }
+
+        gameUI.ShowEndingScreen((level + 1).ToString() + " ÓÐÎÂÅÍÜ ÑÎÐÅÂÍÎÂÀÍÈÉ ÏÐÎÉÄÅÍ", subText, false);
     }
 }

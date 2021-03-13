@@ -5,7 +5,7 @@ public class UISettings : MonoBehaviour
 {
     [Header("Ãğàôèêà")]
     [SerializeField] private Text graphicsOutput;
-    private string[] outputTexts = { "ÍÈÇÊÀß", "ÑĞÅÄÍßß", "ÂÛÑÎÊÀß", "ÓËÜÒĞÀ" };
+    private string[] outputTexts = { "ÍÈÇÊÀß", "ÑĞÅÄÍßß", "ÂÛÑÎÊÀß" };
 
     [Header("Ïîäñêàçêè")]
     [SerializeField] private Image guidesImage;
@@ -59,7 +59,7 @@ public class UISettings : MonoBehaviour
     {
         int graphics = PlayerPrefs.GetInt("Graphics");
         graphics++;
-        graphics %= 4;
+        graphics %= outputTexts.Length;
 
         ChangeGraphics(graphics);
     }
@@ -67,6 +67,8 @@ public class UISettings : MonoBehaviour
     private void ChangeGraphics(int graphics)
     {
         PlayerPrefs.SetInt("Graphics", graphics);
+
+        QualitySettings.SetQualityLevel(graphics, true);
 
         graphicsOutput.text = outputTexts[graphics];
     }
