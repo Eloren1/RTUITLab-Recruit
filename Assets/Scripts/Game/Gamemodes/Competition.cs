@@ -25,22 +25,26 @@ public class Competition : Gamemode
         seconds = 0;
         level = PlayerPrefs.GetInt("Level");
 
-        // Перемещаем самолет в нужную точку
-        planePrefab.transform.position = spawns[level].transform.position;
-        planePrefab.transform.rotation = spawns[level].transform.rotation;
+        Vector3 startingVelocity = Vector3.zero;
+        float startingThrust = 0;
 
         switch (level)
         {
             case 0:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-20f, 3f, -25f), 0.7f);
+                startingVelocity = new Vector3(-20f, 3f, -25f);
+                startingThrust = 0.7f;
                 break;
             case 1:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0);
+                startingVelocity = Vector3.zero;
+                startingThrust = 0f;
                 break;
             case 2:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(-20f, 3f, -25f), 0.7f);
+                startingVelocity = new Vector3(-50f, -10f, -13f);
+                startingThrust = 0.7f;
                 break;
         }
+
+        SpawnPlane(planePrefab, spawns[level], startingVelocity, startingThrust);
 
         // Включаем объект со всеми кольцами
         levels[level].SetActive(true);
@@ -99,12 +103,15 @@ public class Competition : Gamemode
     public override void CompletedGame()
     {
         StopAllCoroutines();
+
+        FindObjectOfType<PlaneController>().StopGame();
+
         int currentRecord = PlayerPrefs.GetInt("Competition " + level);
 
         string subText = $"ВРЕМЯ: { GetTime(seconds) }\n" +
                          $"РЕКОРД: { GetTime(currentRecord) }";
 
-        if (currentRecord > 1 && seconds > 1 && seconds < currentRecord)
+        if ((currentRecord < 1) || (seconds > 1 && seconds < currentRecord))
         {
             PlayerPrefs.SetInt("Competition " + level, seconds);
         }

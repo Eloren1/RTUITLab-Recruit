@@ -14,9 +14,7 @@ public class FreeFlight : Gamemode
     {
         level = PlayerPrefs.GetInt("Level");
 
-        // Перемещаем самолет в нужную точку
-        planePrefab.transform.position = spawns[level].transform.position;
-        planePrefab.transform.rotation = spawns[level].transform.rotation;
+        SpawnPlane(planePrefab, spawns[level], Vector3.zero, 0);
     }
     public override void CompletedGame()
     {

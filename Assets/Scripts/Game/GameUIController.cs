@@ -29,6 +29,8 @@ public class GameUIController : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
+
         Cursor.visible = false;
     }
 
@@ -111,13 +113,7 @@ public class GameUIController : MonoBehaviour
 
     public void ShowEndingScreen(string mainText, string subText, bool positive)
     {
-        //// Ќемного неподход€щее место дл€ этого, но универсально дл€ разных режимов
-        //foreach (var camera in FindObjectsOfType<Camera>())
-        //{
-        //    camera.gameObject.SetActive(false);
-        //}
-
-        Time.timeScale = 0; // TODO: Test it!
+        Time.timeScale = 0;
 
         endingScreen.SetActive(true);
         Cursor.visible = true;

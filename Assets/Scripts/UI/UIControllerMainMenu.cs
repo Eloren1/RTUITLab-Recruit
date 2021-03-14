@@ -33,6 +33,8 @@ public class UIControllerMainMenu : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
+
         ReturnToMainMenu();
     }
 

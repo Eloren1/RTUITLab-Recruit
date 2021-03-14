@@ -27,25 +27,29 @@ public class Tutorial : Gamemode
     {
         level = PlayerPrefs.GetInt("Level");
 
-        // Перемещаем самолет в нужную точку
-        planePrefab.transform.position = spawns[level].transform.position;
-        planePrefab.transform.rotation = spawns[level].transform.rotation;
-
         planeController = planePrefab.GetComponent<PlaneController>();
         engine = planePrefab.GetComponent<Engine>();
+
+        Vector3 startingVelocity = Vector3.zero;
+        float startingThrust = 0;
 
         switch (level)
         {
             case 0:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(70f, -2f, 70f), 0.8f);
+                startingVelocity = new Vector3(70f, -2f, 70f);
+                startingThrust = 0.8f;
                 break;
             case 1:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(Vector3.zero, 0.02f);
+                startingVelocity = Vector3.zero;
+                startingThrust = 0.02f;
                 break;
             case 2:
-                planePrefab.GetComponent<PlaneController>().SetStartValues(new Vector3(0f, 3f, 35f), 0.7f);
+                startingVelocity = new Vector3(0f, 3f, 35f);
+                startingThrust = 0.7f;
                 break;
         }
+
+        SpawnPlane(planePrefab, spawns[level], startingVelocity, startingThrust);
 
         gameActive = true;
         StartCoroutine(SetCanCheck());
@@ -578,6 +582,8 @@ public class Tutorial : Gamemode
     {
         if (gameActive)
         {
+            planeController.StopGame();
+
             gameActive = false;
 
             gameUI.ShowEndingScreen(reason, "", false);
@@ -586,6 +592,8 @@ public class Tutorial : Gamemode
 
     public override void CompletedGame()
     {
+        planeController.StopGame();
+
         gameUI.ShowEndingScreen((level + 1).ToString() + " УРОВЕНЬ ОБУЧЕНИЯ ПРОЙДЕН", "", true);
     }
 }

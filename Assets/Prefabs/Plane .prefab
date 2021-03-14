@@ -1286,8 +1286,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 3
   yawForce: 2500
-  pitchForce: 4000
-  rollForce: 12000
+  pitchForce: 4500
+  rollForce: 13000
   flapsForce: 27000
   flapsForceToLiftingForce: 0.25
   changingSpeed: 0.1
@@ -1641,9 +1641,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6c3f4eb07382b414791580d7c7bc874b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: acf0a22c77412e24abb3b2013256b085, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

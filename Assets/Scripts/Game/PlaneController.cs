@@ -157,6 +157,8 @@ public class PlaneController : MonoBehaviour
         magnitude = transform.InverseTransformDirection(rb.velocity).z;
         angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
 
+        Debug.Log(rb.velocity);
+
         AddCustomGravity();
 
         // Сопротивление воздуха от крыльев под наклоном,
@@ -236,6 +238,14 @@ public class PlaneController : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (magnitude > 20f)
+        {
+            StopGame("САМОЛЕТ СТОЛКНУЛСЯ С ЗЕМЛЕЙ");
+        }
+    }
+
     public void OnTriggerExit(Collider other)
     {
         // Вылет самолета за границы
@@ -249,10 +259,20 @@ public class PlaneController : MonoBehaviour
     {
         if (isGameActive)
         {
-            isGameActive = false;
-            engine.IsWorking = false;
+            StopGame();
 
             gameUI.ShowEndingScreen(reason, "", false);
+        }
+    }
+
+    public void StopGame()
+    {
+        if (isGameActive)
+        {
+            sound.gameObject.SetActive(false);
+
+            isGameActive = false;
+            engine.IsWorking = false;
         }
     }
 }
