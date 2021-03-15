@@ -9,12 +9,17 @@ public class UIControllerMainMenu : MonoBehaviour
 
     [SerializeField] private GameObject mainMenu;
 
+    [HideInInspector] public Vector2 OriginalScreenResolution;
+
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("Guides"))
         {
             AssignStartValues();
         }
+
+        OriginalScreenResolution.x = Screen.width;
+        OriginalScreenResolution.y = Screen.height;
 
         ChangeGraphics();
     }
@@ -25,7 +30,7 @@ public class UIControllerMainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Graphics", 2); // Средний уровень графики
     }
 
-    private void ChangeGraphics()
+    public void ChangeGraphics()
     {
         int graphics = PlayerPrefs.GetInt("Graphics");
         QualitySettings.SetQualityLevel(graphics, true);

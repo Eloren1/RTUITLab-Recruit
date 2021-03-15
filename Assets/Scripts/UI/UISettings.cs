@@ -13,13 +13,16 @@ public class UISettings : MonoBehaviour
     [SerializeField] private Sprite guidesOn;
     [SerializeField] private Sprite guidesOff;
 
+    [Header("Утилиты")]
+    [SerializeField] private UIControllerMainMenu mainUI;
+
     private void Start()
     {
         int guides = PlayerPrefs.GetInt("Guides");
         ChangeGuides(guides == 1);
 
         int graphics = PlayerPrefs.GetInt("Graphics");
-        ChangeGraphics(graphics);
+        graphicsOutput.text = outputTexts[graphics];
     }
 
     public void OnClickGuides()
@@ -61,16 +64,15 @@ public class UISettings : MonoBehaviour
         graphics++;
         graphics %= outputTexts.Length;
 
-        ChangeGraphics(graphics);
+        SetGraphics(graphics);
     }
 
-    private void ChangeGraphics(int graphics)
+    private void SetGraphics(int graphics)
     {
         PlayerPrefs.SetInt("Graphics", graphics);
-
-        QualitySettings.SetQualityLevel(graphics, true);
-
         graphicsOutput.text = outputTexts[graphics];
+
+        mainUI.ChangeGraphics();
     }
 
     public void OnClickControlType()

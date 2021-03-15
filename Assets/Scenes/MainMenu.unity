@@ -3202,7 +3202,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0413\u041E\u0420\u041D\u042B\u0415 \u0412\u0415\u0420\u0428\u0418\u041D\u042B"
+  m_Text: "\u041C\u041E\u0420\u0421\u041A\u0410\u042F \u0413\u041B\u0410\u0414\u042C"
 --- !u!222 &321967598
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3756,7 +3756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041C\u041E\u0420\u0421\u041A\u0410\u042F \u0413\u041B\u0410\u0414\u042C"
+  m_Text: "\u0413\u041E\u0420\u041D\u042B\u0415 \u0425\u0420\u0415\u0411\u0422\u042B"
 --- !u!222 &357499835
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11354,6 +11354,7 @@ MonoBehaviour:
   guidesOutput: {fileID: 299472134}
   guidesOn: {fileID: 21300000, guid: f66c4aa44c09b6a42a2b5b9f9334d824, type: 3}
   guidesOff: {fileID: 21300000, guid: b325a13e94f3bac4199e75b91fa98449, type: 3}
+  mainUI: {fileID: 1589790143}
 --- !u!1001 &1324556398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14059,6 +14060,7 @@ MonoBehaviour:
   - {fileID: 1324218861}
   allTabs: {fileID: 835552777}
   mainMenu: {fileID: 344116129}
+  OriginalScreenResolution: {x: 0, y: 0}
 --- !u!1 &1591432125
 GameObject:
   m_ObjectHideFlags: 0

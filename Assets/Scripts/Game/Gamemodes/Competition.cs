@@ -35,8 +35,8 @@ public class Competition : Gamemode
                 startingThrust = 0.7f;
                 break;
             case 1:
-                startingVelocity = Vector3.zero;
-                startingThrust = 0f;
+                startingVelocity = new Vector3(-50f, -10f, -13f);
+                startingThrust = 0.7f;
                 break;
             case 2:
                 startingVelocity = new Vector3(-50f, -10f, -13f);
