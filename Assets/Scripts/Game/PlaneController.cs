@@ -12,6 +12,8 @@ public class PlaneController : MonoBehaviour
 
     [Header("Параметры")]
     [SerializeField] private float yawForce = 2500f;
+    [SerializeField] private float yawVisualForce = 8f;
+    [SerializeField] private float yawStoppingForce = 30000f;
     [SerializeField] private float pitchForce = 3200f;
     [SerializeField] private float rollForce = 7000f;
     [SerializeField] private float flapsForce = 25000f;
@@ -34,6 +36,7 @@ public class PlaneController : MonoBehaviour
     [Header("Управление")]
     private float thrust;
     private float yaw;
+    private Vector3 currentYawAngles;
     private float pitch;
     private float roll;
     private float flaps;
@@ -43,6 +46,7 @@ public class PlaneController : MonoBehaviour
     private float angle;
     
     [Header("Компоненты")]
+    [SerializeField] private GameObject planeModel;
     private Chassis chassis;
     private Engine engine;
     private Brakes brakes;
@@ -180,7 +184,6 @@ public class PlaneController : MonoBehaviour
             pitch = Mathf.Lerp(pitch, inputs.PitchNormalized(), changingSpeed);
             roll = Mathf.Lerp(roll, inputs.RollNormalized(), changingSpeed);
 
-
             engine.AddForce(thrust, magnitude, SpeedInKnots);
 
             AddYawForce();
@@ -194,7 +197,13 @@ public class PlaneController : MonoBehaviour
 
     private void AddYawForce()
     {
-       rb.AddRelativeTorque(Vector3.up * yaw * magnitude * yawForce);
+        rb.AddRelativeTorque(Vector3.up * yaw * magnitude * yawForce);
+
+        currentYawAngles = planeModel.transform.localEulerAngles;
+        if (currentYawAngles.y > 180f) currentYawAngles.y -= 360f;
+        planeModel.transform.localEulerAngles = Vector3.Lerp(currentYawAngles, Vector3.up * yaw * magnitude / 50 * yawVisualForce, 0.1f);
+
+        rb.AddRelativeForce(Vector3.forward * -yawStoppingForce * Mathf.Abs(yaw) * magnitude);
     }
 
     private void AddRollForce()

@@ -259,6 +259,12 @@ public class Tutorial : Gamemode
                                 StartCoroutine(TaskCompleted());
                             }
                             break;
+                        case 18:
+                            if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+                            {
+                                StartCoroutine(TaskCompleted());
+                            }
+                            break;
                     }
                     break;
             }
@@ -511,29 +517,45 @@ public class Tutorial : Gamemode
                         break;
                     case 17:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Ты великолепно показал себя.»";
+                        text = "«Кстати, я тебе так и не показал,\nкак использовать руль направления.»";
                         break;
-                    case 18: 
-                        StartCoroutine(ShowInstructorText());
-                        text = "«Когда будешь летать самостоятельно, никогда не спеши.»";
-                         break;
+                    case 18:
+                        StartCoroutine(ShowTask());
+                        text = "ЗАЖИМАЙТЕ [Q] И [E] ДЛЯ ПОВОРОТА РУЛЯ НАПРАВЛЕНИЯ";
+                        break;
                     case 19:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Помни, что для посадки нужно выравнивать самолет\nза несколько километров до полосы.»";
-                        break;  
+                        text = "«Используй его для руления на земле.»";
+                        break;
                     case 20:
                         StartCoroutine(ShowInstructorText());
-                        text = "«И что пилот всегда должен\nстремиться к новым знаниям.»";
+                        text = "«Очень не рекомендую использовать его в воздухе.\nТы можешь потерять управление.»";
                         break;
                     case 21:
                         StartCoroutine(ShowInstructorText());
-                        text = "«Никогда не забывай, чему я тебя учил.»";
+                        text = "«Ну что ж.\nТы великолепно показал себя.»";
                         break;
-                    case 22:
+                    case 22: 
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Когда будешь летать самостоятельно, никогда не спеши.»";
+                         break;
+                    case 23:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Помни, что для посадки нужно выравнивать самолет\nза несколько километров до полосы.»";
+                        break;  
+                    case 24:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«И что пилот всегда должен\nстремиться к новым знаниям.»";
+                        break;
+                    case 25:
+                        StartCoroutine(ShowInstructorText());
+                        text = "«Никогда не забывай, чему я тебя учил!»";
+                        break;
+                    case 26:
                         StartCoroutine(ShowInstructorText());
                         text = "«До встречи.»";
                         break;
-                    case 23:
+                    case 27:
                         CompletedGame();
                         break;
                 }

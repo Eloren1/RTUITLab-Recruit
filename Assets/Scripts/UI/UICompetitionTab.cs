@@ -39,7 +39,7 @@ public class UICompetitionTab : MonoBehaviour
                 PlayerPrefs.SetInt("Weather", 0);
                 break;
             case 1:
-                PlayerPrefs.SetInt("Weather", 2);
+                PlayerPrefs.SetInt("Weather", 0);
                 break;
             case 2:
                 PlayerPrefs.SetInt("Weather", 2);
