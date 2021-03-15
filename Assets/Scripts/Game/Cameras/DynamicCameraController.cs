@@ -5,10 +5,11 @@ public class DynamicCameraController : MonoBehaviour
     [SerializeField] private Transform target;
     private float distance;
     [SerializeField] private float maxDistance = 50;
+    [SerializeField] private Vector3 startOffset = new Vector3(-30, 20, 20);
 
-    void Start()
+    private void OnEnable()
     {
-        transform.position = target.position + new Vector3(-30, 20, 20);
+        transform.position = target.position + startOffset;
     }
 
     private void LateUpdate()
