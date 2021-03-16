@@ -114,6 +114,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerButton.cs" />
     <Compile Include="Assets\Scripts\Game\Gamemodes\Gamemode.cs" />
     <Compile Include="Assets\Scripts\Game\Gamemodes\Competition.cs" />
+    <Compile Include="Assets\Scripts\Game\LandingGuide.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Dropdown\DropdownMultiSelect.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoScrollForMore.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBar.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerProgressBarLoop.cs" />
     <Compile Include="Assets\Scripts\UI\UITutorialTab.cs" />
     <Compile Include="Assets\Scripts\Game\PlaneController.cs" />
-    <Compile Include="Assets\Scripts\Game\LandingGuide.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\PolygonWar\Materials\Shader\Particle VertexLit Blended_Backface.shader" />

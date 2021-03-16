@@ -100,6 +100,9 @@ public class GameUIController : MonoBehaviour
 
     public void ToggleMenu()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         menuAnim.SetBool("Opened", !menuAnim.GetBool("Opened"));
 
         if (menuAnim.GetBool("Opened"))
@@ -113,7 +116,7 @@ public class GameUIController : MonoBehaviour
 
     public void ShowEndingScreen(string mainText, string subText, bool positive)
     {
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
 
         endingScreen.SetActive(true);
         Cursor.visible = true;
@@ -124,11 +127,17 @@ public class GameUIController : MonoBehaviour
 
     public void Restart()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         SceneManager.LoadScene(1);
     }
 
     public void Exit()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         SceneManager.LoadScene(0);
     }
 }

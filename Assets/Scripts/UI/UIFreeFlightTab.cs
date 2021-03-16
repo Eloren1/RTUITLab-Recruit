@@ -13,6 +13,9 @@ public class UIFreeFlightTab : MonoBehaviour
 
     public void Play(int level)
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         PlayerPrefs.SetInt("Gamemode", 1);
         PlayerPrefs.SetInt("Level", level);
 

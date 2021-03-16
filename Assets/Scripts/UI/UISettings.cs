@@ -27,6 +27,9 @@ public class UISettings : MonoBehaviour
 
     public void OnClickGuides()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         int guides = PlayerPrefs.GetInt("Guides");
         if (guides == 1) // Было включено, выключаем
         {
@@ -60,6 +63,9 @@ public class UISettings : MonoBehaviour
 
     public void OnClickGraphics()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         int graphics = PlayerPrefs.GetInt("Graphics");
         graphics++;
         graphics %= outputTexts.Length;
@@ -77,7 +83,10 @@ public class UISettings : MonoBehaviour
 
     public void OnClickControlType()
     {
-        // TODO: При добавлении новых режимов управления добавлять возможность выбора здесь.
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
+        // TODO: При добавлении новых режимов управления добавлять возможность выбора здесь
 
         Alert.Instance.ShowAlert("СЕЙЧАС ДОСТУПНО ТОЛЬКО УПРАВЛЕНИЕ С КЛАВИАТУРЫ");
     }

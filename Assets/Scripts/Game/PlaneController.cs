@@ -241,9 +241,9 @@ public class PlaneController : MonoBehaviour
         // оЮДЕМХЕ ЯЮЛНКЕРЮ Б БНДС
         if (other.CompareTag("Water") && engine.IsWorking)
         {
-            StopGame("яюлнкер ярнкймскяъ я бндни");
-
             sound.PlayWaterSplash();
+
+            StopGame("яюлнкер ярнкймскяъ я бндни");
         }
     }
 
@@ -292,7 +292,7 @@ public class PlaneController : MonoBehaviour
     {
         if (isGameActive)
         {
-            sound.gameObject.SetActive(false);
+            sound.UpdateSounds(0, 0);
 
             isGameActive = false;
             engine.IsWorking = false;

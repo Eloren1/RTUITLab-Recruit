@@ -20,6 +20,9 @@ public class CameraManager : MonoBehaviour
 
     public void NextCamera()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         if (currentCamera >= 0)
             if (switchCameras[currentCamera] != null)
                 switchCameras[currentCamera].gameObject.SetActive(false);

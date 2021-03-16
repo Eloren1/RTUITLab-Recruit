@@ -21,6 +21,9 @@ public class UIHangar : MonoBehaviour
 
     public void NextPlane()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         currentPlane++;
 
         if (currentPlane == totalPlanes)
@@ -35,6 +38,9 @@ public class UIHangar : MonoBehaviour
 
     public void PrevPlane()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         currentPlane--;
 
         if (currentPlane == -1)
@@ -55,6 +61,9 @@ public class UIHangar : MonoBehaviour
 
     public void Select()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         PlayerPrefs.SetInt("Plane", currentPlane);
 
         CheckSelected();
@@ -62,10 +71,13 @@ public class UIHangar : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
         // Возвращаем камеру на место
         cameraAnim.SetInteger("Plane", -1);
 
-        FindObjectOfType<UIControllerMainMenu>().ReturnToMainMenu();
+        FindObjectOfType<UIControllerMainMenu>().ReturnToMainMenuSilent();
     }
 
     private void CheckSelected()

@@ -43,8 +43,8 @@ public class PlaneVisuals : MonoBehaviour
         elevator_r.transform.localRotation = Quaternion.Euler(maxPitchAngle * -pitch, 0, 0);
         elevator_l.transform.localRotation = Quaternion.Euler(maxPitchAngle * -pitch, 0, 0);
 
-        aileron_r.transform.localRotation = Quaternion.Euler(maxRollAngle * -roll, -6.604f, 0);
-        aileron_l.transform.localRotation = Quaternion.Euler(maxRollAngle * -roll, -173.396f, 0);
+        aileron_r.transform.localRotation = Quaternion.Euler(maxRollAngle * roll, -6.604f, 0);
+        aileron_l.transform.localRotation = Quaternion.Euler(maxRollAngle * roll, -173.396f, 0);
 
         flaps_r.transform.localRotation = Quaternion.Euler(maxFlapAngle * -flaps, -6.998f, 0);
         flaps_l.transform.localRotation = Quaternion.Euler(maxFlapAngle * flaps, -173.002f, 0);

@@ -20,6 +20,16 @@ public class PlaneSound : MonoBehaviour
 
     public void UpdateSounds(float rpm, float height)
     {
+        if (rpm == 0 && height == 0)
+        {
+            engine.volume = 0;
+
+            windGround.enabled = false;
+            windAir.enabled = false;
+
+            return;
+        }
+
         float rpmAffect = rpm / 5000f;
 
         engine.volume = 0.3f + rpmAffect / 3 * 2;

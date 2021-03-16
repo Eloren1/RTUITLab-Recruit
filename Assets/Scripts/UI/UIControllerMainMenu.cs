@@ -9,17 +9,12 @@ public class UIControllerMainMenu : MonoBehaviour
 
     [SerializeField] private GameObject mainMenu;
 
-    [HideInInspector] public Vector2 OriginalScreenResolution;
-
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("Guides"))
         {
             AssignStartValues();
         }
-
-        OriginalScreenResolution.x = Screen.width;
-        OriginalScreenResolution.y = Screen.height;
 
         ChangeGraphics();
     }
@@ -40,11 +35,13 @@ public class UIControllerMainMenu : MonoBehaviour
     {
         Time.timeScale = 1;
 
-        ReturnToMainMenu();
+        ReturnToMainMenuSilent();
     }
 
     public void OpenTab(int id)
     {
+        UISoundManager.Instance.PlayClickSound();
+
         // Выключаем вкладку главного меню
         mainMenu.SetActive(false);
 
@@ -54,6 +51,20 @@ public class UIControllerMainMenu : MonoBehaviour
     }
 
     public void ReturnToMainMenu()
+    {
+        if (UISoundManager.Instance != null)
+            UISoundManager.Instance.PlayClickSound();
+
+        // Выключаем все вкладки
+        foreach (var tab in tabs)
+            tab.SetActive(false);
+        allTabs.SetActive(false);
+
+        // Включаем вкладку главного меню
+        mainMenu.SetActive(true);
+    }
+
+    public void ReturnToMainMenuSilent()
     {
         // Выключаем все вкладки
         foreach (var tab in tabs)

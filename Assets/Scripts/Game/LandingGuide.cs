@@ -3,7 +3,7 @@ using UnityEngine;
 public class LandingGuide : MonoBehaviour
 {
     [SerializeField] private PlaneController plane;
-    private float minHeight = -2f;
+    private float minHeight = -1f;
     private float maxDistance = 4000f;
 
     [SerializeField] private GameObject landingVisuals;
