@@ -1287,6 +1287,7 @@ MonoBehaviour:
   gravityScale: 3
   yawForce: 500
   yawVisualForce: 12
+  yawStoppingForce: 10000
   pitchForce: 4500
   rollForce: 13000
   flapsForce: 27000
@@ -1302,7 +1303,6 @@ MonoBehaviour:
   pullUpHeight: 4000
   SpeedInKnots: 0
   planeModel: {fileID: 8909458653283084714}
-  steering: {fileID: 8966447268671083169}
   sound: {fileID: 1088596688}
 --- !u!114 &729737343609105085
 MonoBehaviour:
@@ -2256,7 +2256,6 @@ GameObject:
   - component: {fileID: 8923171809905211140}
   - component: {fileID: 8932441465839299006}
   - component: {fileID: 8909351398817457875}
-  - component: {fileID: 8966447268671083169}
   m_Layer: 0
   m_Name: SM_Veh_Plane_American_01_Wheels_r_Down
   m_TagString: Untagged
@@ -2340,20 +2339,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.15
   m_Center: {x: 0, y: -0.96, z: -2.574181}
---- !u!114 &8966447268671083169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8909351398817457874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d514c3ed171b148ba91ae12b448fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 729737343609105080}
-  steeringForce: 1500
 --- !u!1 &8909458653283084714
 GameObject:
   m_ObjectHideFlags: 0

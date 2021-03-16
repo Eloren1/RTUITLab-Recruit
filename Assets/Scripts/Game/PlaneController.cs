@@ -161,7 +161,7 @@ public class PlaneController : MonoBehaviour
         magnitude = transform.InverseTransformDirection(rb.velocity).z;
         angle = Vector3.SignedAngle(transform.forward, rb.velocity, new Vector3(1, 0, 0));
 
-        Debug.Log(rb.velocity);
+        // Debug.Log(rb.velocity); // Нужно для получения стартовых значений при создании в воздухе
 
         AddCustomGravity();
 
@@ -251,7 +251,21 @@ public class PlaneController : MonoBehaviour
     {
         if (magnitude > 20f)
         {
-            StopGame("САМОЛЕТ СТОЛКНУЛСЯ С ЗЕМЛЕЙ");
+            ContactPoint contact = collision.contacts[0];
+            Vector3 localCollisionPoint = transform.InverseTransformPoint(contact.point);
+
+            // Debug.Log(localCollisionPoint);
+
+            bool rearChassisTouch = (localCollisionPoint.y < -0.7f && localCollisionPoint.z < -2.2f);
+            bool frontChassisTouch = (localCollisionPoint.y < -1.6f);
+
+            if (rearChassisTouch || frontChassisTouch)
+            {
+                // Самолет коснулся при помощи шасси
+            } else
+            {
+                StopGame("САМОЛЕТ СТОЛКНУЛСЯ С ЗЕМЛЕЙ");
+            }
         }
     }
 
