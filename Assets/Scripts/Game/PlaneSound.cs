@@ -7,6 +7,7 @@ public class PlaneSound : MonoBehaviour
     [Header("Одиночные звуки")]
     [SerializeField] private AudioSource waterSplash;
     [SerializeField] private AudioSource collectedSound;
+    [SerializeField] private AudioSource explosion;
 
     [Header("Повторяющиеся звуки")]
     [SerializeField] private AudioSource engine;
@@ -69,5 +70,12 @@ public class PlaneSound : MonoBehaviour
     public void PlayCollectedSound()
     {
         collectedSound.Play();
+    }
+
+    public void PlayExplosion(float magnitude)
+    {
+        explosion.volume = magnitude / 40f;
+        explosion.pitch = 0.6f + magnitude / 80f;
+        explosion.Play();
     }
 }

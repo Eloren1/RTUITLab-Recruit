@@ -5,24 +5,6 @@ public abstract class Inputs : MonoBehaviour
 {
     private PlaneController controller;
 
-    private void Awake()
-    {
-        StartCoroutine(TryToAssign());
-    }
-
-    private IEnumerator TryToAssign()
-    {
-        controller = FindObjectOfType<PlaneController>();
-
-        while (controller == null)
-        {
-            yield return new WaitForSeconds(0.2f);
-            controller = FindObjectOfType<PlaneController>();
-        }
-
-        controller.AssignInputs(this);
-    }
-
     /// <returns>«начение от -1f до 1f</returns>
     public abstract float ThrustNormalized();
 

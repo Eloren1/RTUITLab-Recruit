@@ -32,7 +32,7 @@ public class WeatherManager : MonoBehaviour
                 RenderSettings.fogColor = new Color32(37, 37, 37, 255);
                 break;
             case 2: // Вечерний закат
-                RenderSettings.fogEndDistance = 5000;
+                RenderSettings.fogEndDistance = 7000;
                 RenderSettings.fogColor = new Color32(55, 70, 70, 255);
                 break;
         }

@@ -13,7 +13,7 @@ public class UISoundManager : MonoBehaviour
 
     public void PlayClickSound()
     {
-        clickSound.pitch = Random.Range(0.55f, 0.65f);
+        clickSound.pitch = Random.Range(0.95f, 1.05f);
         clickSound.Play();
     }
 }

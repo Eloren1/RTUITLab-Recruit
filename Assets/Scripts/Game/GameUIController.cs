@@ -24,6 +24,7 @@ public class GameUIController : MonoBehaviour
 
     [Header("Ёкран окончани€ игры")]
     [SerializeField] private GameObject endingScreen;
+    [SerializeField] private Image endingScreenBackground;
     [SerializeField] private Text mainTextOutput;
     [SerializeField] private Text subTextOutput;
 
@@ -116,7 +117,12 @@ public class GameUIController : MonoBehaviour
 
     public void ShowEndingScreen(string mainText, string subText, bool positive)
     {
-        // Time.timeScale = 0;
+        Color32 color;
+        if (positive)
+            color = new Color32(114, 150, 114, 255);
+        else
+            color = new Color32(150, 114, 114, 255);
+        endingScreenBackground.color = color;
 
         endingScreen.SetActive(true);
         Cursor.visible = true;

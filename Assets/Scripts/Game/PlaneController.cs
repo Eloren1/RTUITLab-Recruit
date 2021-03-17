@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -69,14 +70,25 @@ public class PlaneController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         gameUI = FindObjectOfType<GameUIController>();
+
+        StartCoroutine(TryAssignInputs());
+    }
+
+    private IEnumerator TryAssignInputs()
+    {
+        inputs = FindObjectOfType<Inputs>();
+
+        while (inputs == null)
+        {
+            yield return new WaitForSeconds(0.2f);
+            inputs = FindObjectOfType<Inputs>();
+        }
     }
 
     private void Start()
     {
         guides = PlayerPrefs.GetInt("Guides") == 1;
     }
-
-    public void AssignInputs(Inputs inputs) { this.inputs = inputs; }
 
     // Метод задает начальные значения, таким образом можно
     // создавать самолет в воздухе уже летящимs
@@ -263,7 +275,7 @@ public class PlaneController : MonoBehaviour
             {
                 // Самолет коснулся при помощи шасси
             } else
-            {
+            { 
                 StopGame("САМОЛЕТ СТОЛКНУЛСЯ С ЗЕМЛЕЙ");
             }
         }
@@ -282,6 +294,8 @@ public class PlaneController : MonoBehaviour
     {
         if (isGameActive)
         {
+            sound.PlayExplosion(magnitude);
+
             StopGame();
 
             gameUI.ShowEndingScreen(reason, "", false);

@@ -116,6 +116,6 @@ public class Competition : Gamemode
             PlayerPrefs.SetInt("Competition " + level, seconds);
         }
 
-        gameUI.ShowEndingScreen((level + 1).ToString() + " спнбемэ янпебмнбюмхи опнидем", subText, false);
+        gameUI.ShowEndingScreen((level + 1).ToString() + " спнбемэ янпебмнбюмхи опнидем", subText, true);
     }
 }
