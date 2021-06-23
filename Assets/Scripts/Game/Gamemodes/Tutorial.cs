@@ -23,6 +23,11 @@ public class Tutorial : Gamemode
         gameUI = FindObjectOfType<GameUIController>();
     }
 
+    /* ¬ методах NextStage() и CheckForTaskCompletion() очень много хардкода. 
+     * ¬ идеале надо было сделать таблицу, и туда записывать выводимый текст и 
+     * задание, которое нужно выполнить. Ќо проект делалс€ в сжатые сроки, поэтому 
+     * дл€ 3 уровней можно было бы обойтись и так. */
+
     public override void StartGame()
     {
         level = PlayerPrefs.GetInt("Level");
